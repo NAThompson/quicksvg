@@ -3,8 +3,6 @@
 #include "plot_fn.hpp"
 #include <boost/math/special_functions/hypergeometric_1F1.hpp>
 #include <boost/math/special_functions/hypergeometric_2F0.hpp>
-#include <boost/math/special_functions/trunc.hpp>
-#include <boost/math/special_functions/detail/round_fwd.hpp>
 
 using boost::math::hypergeometric_1F1;
 using boost::math::hypergeometric_2F0;
