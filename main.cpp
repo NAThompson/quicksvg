@@ -2,8 +2,8 @@
 #include <iostream>
 #include <boost/math/special_functions/hypergeometric_1F1.hpp>
 #include <boost/math/special_functions/hypergeometric_2F0.hpp>
-#include "graph_fn.hpp"
-#include "plot_time_series.hpp"
+#include "quicksvg/graph_fn.hpp"
+#include "quicksvg/plot_time_series.hpp"
 
 
 using boost::math::hypergeometric_1F1;

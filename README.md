@@ -14,7 +14,7 @@ Here's an example of a time series:
 How do we graph a function?
 
 ```cpp
-#include "graph_fn.hpp"
+#include "quicksvg/graph_fn.hpp"
 // ...
 double a = -3.14159;
 double b = 3.14159;
@@ -33,7 +33,7 @@ sin_graph.write_all();
 How do we graph a time series?
 
 ```cpp
-#include "plot_time_series.hpp"
+#include "quicksvg/plot_time_series.hpp"
 // ...
 std::vector<double> v(50);
 std::vector<double> u(50);
