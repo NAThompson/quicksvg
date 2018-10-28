@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' width='1100' height='679'>
+<style>svg { background-color: black; }
+</style>
+<text x='536' y='25' font-family='times' font-size='25' fill='white'>sine and cosine time series</text>
+<g transform='translate(25, 35)'>
+<line x1='0' y1='0' x2='0' y2='624' stroke='gray' stroke-width='1' />
+<line x1='0' y1='312.002' x2='1055' y2='312.002' stroke='gray' stroke-width='1' />
+<line x1='0' y1='546' x2='1055' y2='546' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='-7' y='543' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 551)'>-0.75</text>
+<line x1='0' y1='468.00' x2='1055' y2='468.00' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='-7' y='465.00' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 473.00)'>-0.50</text>
+<line x1='0' y1='390.00' x2='1055' y2='390.00' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='-7' y='387.00' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 395.00)'>-0.25</text>
+<line x1='0' y1='312.00' x2='1055' y2='312.00' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='-7' y='309.00' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 317.00)'>0.00</text>
+<line x1='0' y1='234.00' x2='1055' y2='234.00' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='-7' y='231.00' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 239.00)'>0.25</text>
+<line x1='0' y1='156.00' x2='1055' y2='156.00' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='-7' y='153.00' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 161.00)'>0.50</text>
+<line x1='0' y1='78.00' x2='1055' y2='78.00' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='-7' y='75.00' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 83.00)'>0.75</text>
+<line x1='0' y1='0.00' x2='1055' y2='0.00' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='-7' y='-3.00' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 5.00)'>1.00</text>
+<line x1='105.50' y1='0' x2='105.50' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='95.50' y='634' font-family='times' font-size='10' fill='white'>1.23</text>
+<line x1='211.00' y1='0' x2='211.00' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='201.00' y='634' font-family='times' font-size='10' fill='white'>2.45</text>
+<line x1='316.50' y1='0' x2='316.50' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='306.50' y='634' font-family='times' font-size='10' fill='white'>3.67</text>
+<line x1='422.00' y1='0' x2='422.00' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='412.00' y='634' font-family='times' font-size='10' fill='white'>4.90</text>
+<line x1='527.50' y1='0' x2='527.50' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='517.50' y='634' font-family='times' font-size='10' fill='white'>6.12</text>
+<line x1='633.00' y1='0' x2='633.00' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='623.00' y='634' font-family='times' font-size='10' fill='white'>7.35</text>
+<line x1='738.50' y1='0' x2='738.50' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='728.50' y='634' font-family='times' font-size='10' fill='white'>8.57</text>
+<line x1='844.00' y1='0' x2='844.00' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='834.00' y='634' font-family='times' font-size='10' fill='white'>9.80</text>
+<line x1='949.50' y1='0' x2='949.50' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='939.50' y='634' font-family='times' font-size='10' fill='white'>11.03</text>
+<line x1='1055.00' y1='0' x2='1055.00' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='1045.00' y='634' font-family='times' font-size='10' fill='white'>12.25</text>
+<path d='M0.00 312.00 L21.53 234.81 L43.06 162.42 L64.59 99.33 L86.12 49.46 L107.65 15.92 L129.18 0.78 L150.71 5.00 L172.24 28.30 L193.78 69.24 L215.31 125.28 L236.84 192.92 L258.37 267.97 L279.90 345.76 L301.43 421.45 L322.96 490.33 L344.49 548.13 L366.02 591.24 L387.55 616.99 L409.08 623.78 L430.61 611.19 L452.14 579.99 L473.67 532.13 L495.20 470.59 L516.73 399.18 L538.27 322.35 L559.80 244.88 L581.33 171.59 L602.86 107.02 L624.39 55.20 L645.92 19.34 L667.45 1.69 L688.98 3.32 L710.51 24.15 L732.04 62.87 L753.57 117.09 L775.10 183.42 L796.63 257.75 L818.16 335.45 L839.69 411.69 L861.22 481.74 L882.76 541.23 L904.29 586.47 L925.82 614.64 L947.35 624.00 L968.88 613.96 L990.41 585.14 L1011.94 539.35 L1033.47 479.41 L1055.00 409.07' stroke='steelblue' stroke-width='3' fill='none'></path>
+<circle cx='0.00' cy='312.00' r='2' fill='orange' />
+<circle cx='21.53' cy='234.81' r='2' fill='orange' />
+<circle cx='43.06' cy='162.42' r='2' fill='orange' />
+<circle cx='64.59' cy='99.33' r='2' fill='orange' />
+<circle cx='86.12' cy='49.46' r='2' fill='orange' />
+<circle cx='107.65' cy='15.92' r='2' fill='orange' />
+<circle cx='129.18' cy='0.78' r='2' fill='orange' />
+<circle cx='150.71' cy='5.00' r='2' fill='orange' />
+<circle cx='172.24' cy='28.30' r='2' fill='orange' />
+<circle cx='193.78' cy='69.24' r='2' fill='orange' />
+<circle cx='215.31' cy='125.28' r='2' fill='orange' />
+<circle cx='236.84' cy='192.92' r='2' fill='orange' />
+<circle cx='258.37' cy='267.97' r='2' fill='orange' />
+<circle cx='279.90' cy='345.76' r='2' fill='orange' />
+<circle cx='301.43' cy='421.45' r='2' fill='orange' />
+<circle cx='322.96' cy='490.33' r='2' fill='orange' />
+<circle cx='344.49' cy='548.13' r='2' fill='orange' />
+<circle cx='366.02' cy='591.24' r='2' fill='orange' />
+<circle cx='387.55' cy='616.99' r='2' fill='orange' />
+<circle cx='409.08' cy='623.78' r='2' fill='orange' />
+<circle cx='430.61' cy='611.19' r='2' fill='orange' />
+<circle cx='452.14' cy='579.99' r='2' fill='orange' />
+<circle cx='473.67' cy='532.13' r='2' fill='orange' />
+<circle cx='495.20' cy='470.59' r='2' fill='orange' />
+<circle cx='516.73' cy='399.18' r='2' fill='orange' />
+<circle cx='538.27' cy='322.35' r='2' fill='orange' />
+<circle cx='559.80' cy='244.88' r='2' fill='orange' />
+<circle cx='581.33' cy='171.59' r='2' fill='orange' />
+<circle cx='602.86' cy='107.02' r='2' fill='orange' />
+<circle cx='624.39' cy='55.20' r='2' fill='orange' />
+<circle cx='645.92' cy='19.34' r='2' fill='orange' />
+<circle cx='667.45' cy='1.69' r='2' fill='orange' />
+<circle cx='688.98' cy='3.32' r='2' fill='orange' />
+<circle cx='710.51' cy='24.15' r='2' fill='orange' />
+<circle cx='732.04' cy='62.87' r='2' fill='orange' />
+<circle cx='753.57' cy='117.09' r='2' fill='orange' />
+<circle cx='775.10' cy='183.42' r='2' fill='orange' />
+<circle cx='796.63' cy='257.75' r='2' fill='orange' />
+<circle cx='818.16' cy='335.45' r='2' fill='orange' />
+<circle cx='839.69' cy='411.69' r='2' fill='orange' />
+<circle cx='861.22' cy='481.74' r='2' fill='orange' />
+<circle cx='882.76' cy='541.23' r='2' fill='orange' />
+<circle cx='904.29' cy='586.47' r='2' fill='orange' />
+<circle cx='925.82' cy='614.64' r='2' fill='orange' />
+<circle cx='947.35' cy='624.00' r='2' fill='orange' />
+<circle cx='968.88' cy='613.96' r='2' fill='orange' />
+<circle cx='990.41' cy='585.14' r='2' fill='orange' />
+<circle cx='1011.94' cy='539.35' r='2' fill='orange' />
+<circle cx='1033.47' cy='479.41' r='2' fill='orange' />
+<circle cx='1055.00' cy='409.07' r='2' fill='orange' />
+<circle cx='0.00' cy='0.00' r='2' fill='lightgreen' />
+<circle cx='21.53' cy='9.70' r='2' fill='lightgreen' />
+<circle cx='43.06' cy='38.19' r='2' fill='lightgreen' />
+<circle cx='64.59' cy='83.71' r='2' fill='lightgreen' />
+<circle cx='86.12' cy='143.43' r='2' fill='lightgreen' />
+<circle cx='107.65' cy='213.62' r='2' fill='lightgreen' />
+<circle cx='129.18' cy='289.93' r='2' fill='lightgreen' />
+<circle cx='150.71' cy='367.61' r='2' fill='lightgreen' />
+<circle cx='172.24' cy='441.84' r='2' fill='lightgreen' />
+<circle cx='193.78' cy='507.99' r='2' fill='lightgreen' />
+<circle cx='215.31' cy='561.96' r='2' fill='lightgreen' />
+<circle cx='236.84' cy='600.39' r='2' fill='lightgreen' />
+<circle cx='258.37' cy='620.88' r='2' fill='lightgreen' />
+<circle cx='279.90' cy='622.17' r='2' fill='lightgreen' />
+<circle cx='301.43' cy='604.18' r='2' fill='lightgreen' />
+<circle cx='322.96' cy='568.02' r='2' fill='lightgreen' />
+<circle cx='344.49' cy='515.94' r='2' fill='lightgreen' />
+<circle cx='366.02' cy='451.18' r='2' fill='lightgreen' />
+<circle cx='387.55' cy='377.77' r='2' fill='lightgreen' />
+<circle cx='409.08' cy='300.27' r='2' fill='lightgreen' />
+<circle cx='430.61' cy='223.50' r='2' fill='lightgreen' />
+<circle cx='452.14' cy='152.23' r='2' fill='lightgreen' />
+<circle cx='473.67' cy='90.90' r='2' fill='lightgreen' />
+<circle cx='495.20' cy='43.31' r='2' fill='lightgreen' />
+<circle cx='516.73' cy='12.43' r='2' fill='lightgreen' />
+<circle cx='538.27' cy='0.17' r='2' fill='lightgreen' />
+<circle cx='559.80' cy='7.30' r='2' fill='lightgreen' />
+<circle cx='581.33' cy='33.38' r='2' fill='lightgreen' />
+<circle cx='602.86' cy='76.78' r='2' fill='lightgreen' />
+<circle cx='624.39' cy='134.81' r='2' fill='lightgreen' />
+<circle cx='645.92' cy='203.85' r='2' fill='lightgreen' />
+<circle cx='667.45' cy='279.62' r='2' fill='lightgreen' />
+<circle cx='688.98' cy='357.40' r='2' fill='lightgreen' />
+<circle cx='710.51' cy='432.36' r='2' fill='lightgreen' />
+<circle cx='732.04' cy='499.83' r='2' fill='lightgreen' />
+<circle cx='753.57' cy='555.63' r='2' fill='lightgreen' />
+<circle cx='775.10' cy='596.28' r='2' fill='lightgreen' />
+<circle cx='796.63' cy='619.25' r='2' fill='lightgreen' />
+<circle cx='818.16' cy='623.12' r='2' fill='lightgreen' />
+<circle cx='839.69' cy='607.65' r='2' fill='lightgreen' />
+<circle cx='861.22' cy='573.79' r='2' fill='lightgreen' />
+<circle cx='882.76' cy='523.66' r='2' fill='lightgreen' />
+<circle cx='904.29' cy='460.37' r='2' fill='lightgreen' />
+<circle cx='925.82' cy='387.85' r='2' fill='lightgreen' />
+<circle cx='947.35' cy='310.62' r='2' fill='lightgreen' />
+<circle cx='968.88' cy='233.47' r='2' fill='lightgreen' />
+<circle cx='990.41' cy='161.21' r='2' fill='lightgreen' />
+<circle cx='1011.94' cy='98.32' r='2' fill='lightgreen' />
+<circle cx='1033.47' cy='48.72' r='2' fill='lightgreen' />
+<circle cx='1055.00' cy='15.48' r='2' fill='lightgreen' />
+</g>
+</svg>
