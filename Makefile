@@ -5,10 +5,10 @@ all: plot_fn.x
 
 .PHONY: plot_fn.x
 plot_fn.x: main.cpp
-	rm -rf *.x *.svg *.x.dSYM
+	rm -rf *.x *.svg *.x.dSYM examples/*.svg
 	$(CXX) $(CXXFLAGS) $? -o $@
 	./plot_fn.x
-	cat *.svg
+	cat examples/*.svg
 
 .PHONY: clean
 clean:

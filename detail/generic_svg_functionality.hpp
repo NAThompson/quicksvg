@@ -1,25 +1,26 @@
-#ifndef GENERIC_SVG_FUNCTIONALITY
-#define GENERIC_SVG_FUNCTIONALITY
+#ifndef QUICKSVG_DETAIL_GENERIC_SVG_FUNCTIONALITY
+#define QUICKSVG_DETAIL_GENERIC_SVG_FUNCTIONALITY
 
 #include <iomanip>
 #include <fstream>
 
 namespace quicksvg { namespace detail {
 
-void write_prelude(std::ofstream& fs, std::string title, int width, int height)
+void write_prelude(std::ofstream& fs, std::string title, int width, int height, int margin_top)
 {
     fs << "<?xml version=\"1.0\" encoding='UTF-8' ?>\n"
-        << "<svg xmlns='http://www.w3.org/2000/svg' width='"
-        << width << "' height='"
-        << height << "'>\n"
-        // Black background; I don't want to go blind:
-        << "<style>svg { background-color: black; }\n"
-        << "</style>\n"
-        // Title:
-        << "<text x='" << floor((width - title.length())/2)
-        << "' y='25' font-family='times' font-size='25' fill='white'>"
-        << title
-        << "</text>\n";
+       << "<svg xmlns='http://www.w3.org/2000/svg' width='"
+       << width << "' height='"
+       << height << "'>\n"
+       // Black background; I don't want to go blind:
+       << "<style>svg { background-color: black; }\n"
+       << "</style>\n"
+       // Title:
+       << "<text x='" << floor(width/2)
+       << "' y='" << floor(margin_top/2)
+       << "' font-family='Palatino' font-size='25' fill='white'  alignment-baseline='middle' text-anchor='middle'>"
+       << title
+       << "</text>\n";
 }
 
 template<class F1, class F2>

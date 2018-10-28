@@ -2,46 +2,46 @@
 <svg xmlns='http://www.w3.org/2000/svg' width='1100' height='679'>
 <style>svg { background-color: black; }
 </style>
-<text x='539' y='25' font-family='times' font-size='25' fill='white'>₁F₁(2, -2.5, 𝑥)</text>
-<g transform='translate(25, 35)'>
-<line x1='0' y1='0' x2='0' y2='624' stroke='gray' stroke-width='1' />
-<line x1='0' y1='99.037' x2='1055' y2='99.037' stroke='gray' stroke-width='1' />
-<line x1='0' y1='546' x2='1055' y2='546' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='-7' y='543' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 551)'>-9.96</text>
-<line x1='0' y1='468.00' x2='1055' y2='468.00' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='-7' y='465.00' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 473.00)'>-8.22</text>
-<line x1='0' y1='390.00' x2='1055' y2='390.00' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='-7' y='387.00' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 395.00)'>-6.48</text>
-<line x1='0' y1='312.00' x2='1055' y2='312.00' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='-7' y='309.00' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 317.00)'>-4.75</text>
-<line x1='0' y1='234.00' x2='1055' y2='234.00' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='-7' y='231.00' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 239.00)'>-3.01</text>
-<line x1='0' y1='156.00' x2='1055' y2='156.00' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='-7' y='153.00' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 161.00)'>-1.27</text>
-<line x1='0' y1='78.00' x2='1055' y2='78.00' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='-7' y='75.00' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 83.00)'>0.47</text>
+<text x='550' y='20' font-family='Palatino' font-size='25' fill='white'  alignment-baseline='middle' text-anchor='middle'>₁F₁(2, -2.5, 𝑥)</text>
+<g transform='translate(25, 40)'>
+<line x1='0' y1='0' x2='0' y2='619' stroke='gray' stroke-width='1' />
+<line x1='0' y1='86.5515' x2='1055' y2='86.5515' stroke='gray' stroke-width='1' />
+<line x1='0' y1='541.625' x2='1055' y2='541.625' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='-7' y='538.625' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 546.625)'>-11.60</text>
+<line x1='0' y1='464.25' x2='1055' y2='464.25' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='-7' y='461.25' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 469.25)'>-9.63</text>
+<line x1='0' y1='386.88' x2='1055' y2='386.88' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='-7' y='383.88' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 391.88)'>-7.66</text>
+<line x1='0' y1='309.50' x2='1055' y2='309.50' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='-7' y='306.50' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 314.50)'>-5.68</text>
+<line x1='0' y1='232.12' x2='1055' y2='232.12' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='-7' y='229.12' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 237.12)'>-3.71</text>
+<line x1='0' y1='154.75' x2='1055' y2='154.75' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='-7' y='151.75' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 159.75)'>-1.74</text>
+<line x1='0' y1='77.38' x2='1055' y2='77.38' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='-7' y='74.38' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 82.38)'>0.23</text>
 <line x1='0' y1='0.00' x2='1055' y2='0.00' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
 <text x='-7' y='-3.00' font-family='times' font-size='10' fill='white' transform='rotate(-90 -1 5.00)'>2.21</text>
-<line x1='105.50' y1='0' x2='105.50' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='95.50' y='634' font-family='times' font-size='10' fill='white'>-1.70</text>
-<line x1='211.00' y1='0' x2='211.00' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='201.00' y='634' font-family='times' font-size='10' fill='white'>-1.40</text>
-<line x1='316.50' y1='0' x2='316.50' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='306.50' y='634' font-family='times' font-size='10' fill='white'>-1.10</text>
-<line x1='422.00' y1='0' x2='422.00' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='412.00' y='634' font-family='times' font-size='10' fill='white'>-0.80</text>
-<line x1='527.50' y1='0' x2='527.50' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='517.50' y='634' font-family='times' font-size='10' fill='white'>-0.50</text>
-<line x1='633.00' y1='0' x2='633.00' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='623.00' y='634' font-family='times' font-size='10' fill='white'>-0.20</text>
-<line x1='738.50' y1='0' x2='738.50' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='728.50' y='634' font-family='times' font-size='10' fill='white'>0.10</text>
-<line x1='844.00' y1='0' x2='844.00' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='834.00' y='634' font-family='times' font-size='10' fill='white'>0.40</text>
-<line x1='949.50' y1='0' x2='949.50' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='939.50' y='634' font-family='times' font-size='10' fill='white'>0.70</text>
-<line x1='1055.00' y1='0' x2='1055.00' y2='624' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
-<text x='1045.00' y='634' font-family='times' font-size='10' fill='white'>1.00</text>
-<path d='M0.00 68.51 L10.55 64.62 L21.10 60.79 L31.65 57.03 L42.20 53.34 L52.75 49.73 L63.30 46.21 L73.85 42.78 L84.40 39.45 L94.95 36.22 L105.50 33.10 L116.05 30.09 L126.60 27.20 L137.15 24.43 L147.70 21.79 L158.25 19.28 L168.80 16.91 L179.35 14.68 L189.90 12.60 L200.45 10.67 L211.00 8.89 L221.55 7.27 L232.10 5.80 L242.65 4.50 L253.20 3.36 L263.75 2.38 L274.30 1.57 L284.85 0.93 L295.40 0.45 L305.95 0.14 L316.50 0.00 L327.05 0.02 L337.60 0.20 L348.15 0.55 L358.70 1.05 L369.25 1.70 L379.80 2.50 L390.35 3.44 L400.90 4.53 L411.45 5.74 L422.00 7.08 L432.55 8.54 L443.10 10.11 L453.65 11.78 L464.20 13.54 L474.75 15.38 L485.30 17.29 L495.85 19.26 L506.40 21.28 L516.95 23.34 L527.50 25.43 L538.05 27.53 L548.60 29.63 L559.15 31.72 L569.70 33.79 L580.25 35.82 L590.80 37.81 L601.35 39.74 L611.90 41.60 L622.45 43.39 L633.00 45.10 L643.55 46.72 L654.10 48.25 L664.65 49.68 L675.20 51.01 L685.75 52.26 L696.30 53.42 L706.85 54.51 L717.40 55.54 L727.95 56.53 L738.50 57.51 L749.05 58.50 L759.60 59.55 L770.15 60.70 L780.70 62.01 L791.25 63.53 L801.80 65.34 L812.35 67.54 L822.90 70.20 L833.45 73.45 L844.00 77.41 L854.55 82.22 L865.10 88.05 L875.65 95.06 L886.20 103.47 L896.75 113.50 L907.30 125.39 L917.85 139.43 L928.40 155.91 L938.95 175.17 L949.50 197.60 L960.05 223.59 L970.60 253.59 L981.15 288.11 L991.70 327.68 L1002.25 372.89 L1012.80 424.39 L1023.35 482.89 L1033.90 549.15 L1044.45 624.00' stroke='steelblue' stroke-width='3' fill='none'></path>
+<line x1='105.50' y1='0' x2='105.50' y2='619' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='95.50' y='629' font-family='times' font-size='10' fill='white'>-1.70</text>
+<line x1='211.00' y1='0' x2='211.00' y2='619' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='201.00' y='629' font-family='times' font-size='10' fill='white'>-1.40</text>
+<line x1='316.50' y1='0' x2='316.50' y2='619' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='306.50' y='629' font-family='times' font-size='10' fill='white'>-1.10</text>
+<line x1='422.00' y1='0' x2='422.00' y2='619' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='412.00' y='629' font-family='times' font-size='10' fill='white'>-0.80</text>
+<line x1='527.50' y1='0' x2='527.50' y2='619' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='517.50' y='629' font-family='times' font-size='10' fill='white'>-0.50</text>
+<line x1='633.00' y1='0' x2='633.00' y2='619' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='623.00' y='629' font-family='times' font-size='10' fill='white'>-0.20</text>
+<line x1='738.50' y1='0' x2='738.50' y2='619' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='728.50' y='629' font-family='times' font-size='10' fill='white'>0.10</text>
+<line x1='844.00' y1='0' x2='844.00' y2='619' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='834.00' y='629' font-family='times' font-size='10' fill='white'>0.40</text>
+<line x1='949.50' y1='0' x2='949.50' y2='619' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='939.50' y='629' font-family='times' font-size='10' fill='white'>0.70</text>
+<line x1='1055.00' y1='0' x2='1055.00' y2='619' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />
+<text x='1045.00' y='629' font-family='times' font-size='10' fill='white'>1.00</text>
+<path d='M0.00 59.87 L10.66 56.44 L21.31 53.06 L31.97 49.74 L42.63 46.49 L53.28 43.31 L63.94 40.21 L74.60 37.19 L85.25 34.25 L95.91 31.41 L106.57 28.66 L117.22 26.02 L127.88 23.48 L138.54 21.05 L149.19 18.73 L159.85 16.54 L170.51 14.47 L181.16 12.52 L191.82 10.71 L202.47 9.03 L213.13 7.48 L223.79 6.08 L234.44 4.81 L245.10 3.70 L255.76 2.72 L266.41 1.90 L277.07 1.22 L287.73 0.69 L298.38 0.31 L309.04 0.08 L319.70 0.00 L330.35 0.06 L341.01 0.27 L351.67 0.62 L362.32 1.10 L372.98 1.73 L383.64 2.48 L394.29 3.36 L404.95 4.36 L415.61 5.48 L426.26 6.70 L436.92 8.03 L447.58 9.45 L458.23 10.96 L468.89 12.55 L479.55 14.20 L490.20 15.91 L500.86 17.68 L511.52 19.48 L522.17 21.31 L532.83 23.16 L543.48 25.01 L554.14 26.86 L564.80 28.70 L575.45 30.51 L586.11 32.28 L596.77 34.01 L607.42 35.68 L618.08 37.29 L628.74 38.83 L639.39 40.29 L650.05 41.67 L660.71 42.96 L671.36 44.17 L682.02 45.30 L692.68 46.35 L703.33 47.33 L713.99 48.26 L724.65 49.14 L735.30 50.00 L745.96 50.87 L756.62 51.78 L767.27 52.77 L777.93 53.88 L788.59 55.17 L799.24 56.70 L809.90 58.55 L820.56 60.79 L831.21 63.54 L841.87 66.90 L852.53 70.99 L863.18 75.95 L873.84 81.94 L884.49 89.15 L895.15 97.76 L905.81 108.00 L916.46 120.12 L927.12 134.38 L937.78 151.08 L948.43 170.56 L959.09 193.18 L969.75 219.35 L980.40 249.50 L991.06 284.12 L1001.72 323.73 L1012.37 368.93 L1023.03 420.33 L1033.69 478.63 L1044.34 544.58 L1055.00 619.00' stroke='steelblue' stroke-width='3' fill='none'></path>
 </g>
 </svg>

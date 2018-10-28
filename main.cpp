@@ -2,7 +2,7 @@
 #include <iostream>
 #include <boost/math/special_functions/hypergeometric_1F1.hpp>
 #include <boost/math/special_functions/hypergeometric_2F0.hpp>
-#include "plot_fn.hpp"
+#include "graph_fn.hpp"
 #include "plot_time_series.hpp"
 
 
@@ -11,42 +11,56 @@ using boost::math::hypergeometric_2F0;
 
 int main() {
 
-    double a = -3;
-    double b = 2;
-    std::string title = "sin(𝑥)";
-    std::string filename = "examples/sine.svg";
+    double a = -3.14159;
+    double b = 3.14159;
+    std::string title = "sin(𝑥) and cos(𝑥)";
+    std::string filename = "examples/sine_and_cosine.svg";
     auto f = [](double x)->double { return std::sin(x); };
-    plot_fn(f, a, b, title, filename);
+    auto g = [](double x)->double { return std::cos(x); };
+    quicksvg::graph_fn sin_graph(a, b, title, filename);
+
+    sin_graph.add_fn(f);
+    sin_graph.add_fn(g, "green");
+
+    sin_graph.write_all();
 
     auto onef1_1 = [](double x)->double { return hypergeometric_1F1(3, 7, x); };
     a = -3;
     b = 2;
     title = "\u2081F\u2081(3, 7, 𝑥)";
     filename = "examples/1F1_1.svg";
-    plot_fn(onef1_1, a, b, title, filename);
+    quicksvg::graph_fn onef1_1graph(a, b, title, filename);
+    onef1_1graph.add_fn(onef1_1);
+    onef1_1graph.write_all();
 
     auto onef1_2 = [](double x)->double { return hypergeometric_1F1(-2, 3, x); };
     a = -3;
     b = 2;
     title = "\u2081F\u2081(-2, 3, 𝑥)";
     filename = "examples/1F1_2.svg";
-    plot_fn(onef1_2, a, b, title, filename);
-
+    quicksvg::graph_fn onef1_2graph(a, b, title, filename);
+    onef1_2graph.add_fn(onef1_2);
+    onef1_2graph.write_all();
 
     auto onef1_3 = [](double x)->double { return hypergeometric_1F1(2, -2.5, x); };
     a = -2;
     b = 1;
     title = "\u2081F\u2081(2, -2.5, 𝑥)";
     filename = "examples/1F1_3.svg";
-    plot_fn(onef1_3, a, b, title, filename);
 
+    quicksvg::graph_fn onef1_3graph(a, b, title, filename);
+    onef1_3graph.add_fn(onef1_3);
+    onef1_3graph.write_all();
 
     auto onef1_4 = [](double x)->double { return hypergeometric_1F1(-2, -2.5, x); };
     a = -4;
     b = 1;
     title = "\u2081F\u2081(-2, -2.5, 𝑥)";
     filename = "examples/1F1_4.svg";
-    plot_fn(onef1_4, a, b, title, filename);
+    quicksvg::graph_fn onef1_4graph(a, b, title, filename);
+    onef1_4graph.add_fn(onef1_4);
+    onef1_4graph.write_all();
+
 
 
     std::vector<double> v(50);

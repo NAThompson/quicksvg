@@ -1,5 +1,5 @@
-#ifndef PLOT_TIME_SERIES_HPP
-#define PLOT_TIME_SERIES_HPP
+#ifndef QUICKSVG_PLOT_TIME_SERIES_HPP
+#define QUICKSVG_PLOT_TIME_SERIES_HPP
 
 #include <cassert>
 #include <vector>
@@ -23,26 +23,28 @@ public:
                     m_is_written{false}
 
     {
-        // Golden ratio dude.
-        int height = floor(double(width)/1.61803);
         m_fs.open(filename);
 
-        m_margin_top = 35;
+        m_margin_top = 40;
         m_margin_left = 25;
         m_margin_bottom = 20;
         m_margin_right = 20;
+
+        int height = floor(double(width)/1.61803);
         m_graph_height = height - m_margin_bottom - m_margin_top;
         m_graph_width = width - m_margin_left - m_margin_right;
 
-
-        detail::write_prelude(m_fs, title, width, height);
-
-
+        detail::write_prelude(m_fs, title, width, height, m_margin_top);
     }
 
     void add_dataset(std::vector<double> const & v, bool connect_the_dots = true,
                      std::string connect_color = "steelblue", std::string dot_color="orange")
     {
+        if (m_is_written)
+        {
+            throw std::logic_error("Cannot add data to graph after writing it.\n");
+        }
+
         auto result = std::minmax_element(v.begin(), v.end());
         if (*result.first < m_min_y)
         {
@@ -133,7 +135,7 @@ public:
 
         m_is_written = true;
 
-    };
+    }
 
     ~plot_time_series()
     {
