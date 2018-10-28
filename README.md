@@ -5,9 +5,7 @@ This is a tiny library for generating SVG files from within C++. It plots time s
 Here's an example of a function graphed:
 
 ![Alt text](./examples/1F1_3.svg)
-<img src="./examples/1F1_3.svg">
 
 Here's an example of a time series:
 
 ![Alt text](./examples/sin_cos_time_series.svg)
-<img src="./examples/sin_cos_time_series.svg">
