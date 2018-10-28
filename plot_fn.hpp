@@ -1,6 +1,6 @@
 #ifndef PLOT_FN_HPP
 #define PLOT_FN_HPP
-
+#include "detail/generic_svg_functionality.hpp"
 #include <iomanip>
 #include <cassert>
 #include <vector>
@@ -12,7 +12,6 @@ void plot_fn(F f, double a, double b, std::string const & title, std::string con
 {
     assert(b > a);
     int height = floor(double(width)/1.61803);
-    std::ofstream fs(filename);
 
     std::vector<std::pair<double, double>> xys(samples);
     double step = (b-a)/samples;
@@ -51,27 +50,17 @@ void plot_fn(F f, double a, double b, std::string const & title, std::string con
       return ((max_val - y)/(max_val - min_val) )*static_cast<double>(graph_height);
     };
 
-    fs << "<?xml version=\"1.0\" encoding='UTF-8' ?>\n"
-       << "<svg xmlns='http://www.w3.org/2000/svg' version='1.1' width='"
-       << width << "' height='"
-       << height << "'>\n"
-       // Black background; I don't want to go blind:
-       << "<style>svg { background-color: black; }\n"
-       << "</style>\n"
-       // Title:
-       << "<text x='" << floor((width - title.length())/2)
-       << "' y='25' font-family='times' font-size='25' fill='white'>"
-       << title
-       << "</text>\n"
+    std::ofstream fs(filename);
 
+    quicksvg::detail::write_prelude(fs, title, width, height);
 
-       // Construct SVG group to simplify the calculations slightly:
-       << "<g transform='translate(" << margin_left << ", " << margin_top << ")'>\n"
+    // Construct SVG group to simplify the calculations slightly:
+    fs << "<g transform='translate(" << margin_left << ", " << margin_top << ")'>\n"
        // y-axis:
        << "<line x1='0' y1='0' x2='0' y2='" << graph_height
        << "' stroke='gray' stroke-width='1' />\n";
-       // x-axis: If 0 is between the min a max height, place the axis at zero.
-       // Otherwise, place is at the bottom of the graph.
+    // x-axis: If 0 is between the min a max height, place the axis at zero.
+    // Otherwise, place is at the bottom of the graph.
     double x_axis_loc = graph_height;
     double x_axis_yval = min_val;
     if (min_val <= 0 && max_val >= 0) {
@@ -81,42 +70,8 @@ void plot_fn(F f, double a, double b, std::string const & title, std::string con
     fs << "<line x1='0' y1='" << x_axis_loc << "' x2='" << graph_width << "' y2='" << x_axis_loc
        << "' stroke='gray' stroke-width='1' />\n";
 
-    /*// Label the y-coordinate of the x_axis:
-    fs << "<text x='" <<  -margin_left/2 + 3 << "' y='" << x_axis_loc - 3
-       << "' font-family='times' font-size='10' fill='white' transform='rotate(-90 "
-       << -margin_left/2 + 11 << " " << x_axis_loc + 5 << ")'>"
-       <<  std::fixed << std::setprecision(2) << x_axis_yval << "</text>\n";*/
-
-    // Make a grid:
-    int horizontal_lines = 8;
-    for (int i = 1; i <= horizontal_lines; ++i) {
-        double y_cord_dataspace = min_val +  ((max_val - min_val)*i)/horizontal_lines;
-        double y = yScale(y_cord_dataspace);
-        fs << "<line x1='0' y1='" << y << "' x2='" << graph_width
-           << "' y2='" << y
-           << "' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />\n";
-
-        fs << "<text x='" <<  -margin_left/2 + 5 << "' y='" << y - 3
-           << "' font-family='times' font-size='10' fill='white' transform='rotate(-90 "
-           << -margin_left/2 + 11 << " " << y + 5 << ")'>"
-           <<  std::fixed << std::setprecision(2) << y_cord_dataspace << "</text>\n";
-     }
-
-     int vertical_lines = 10;
-     for (int i = 1; i <= vertical_lines; ++i) {
-         double x_cord_dataspace = a +  ((b - a)*i)/vertical_lines;
-         double x = xScale(x_cord_dataspace);
-         fs << "<line x1='" << x << "' y1='0' x2='" << x
-            << "' y2='" << graph_height
-            << "' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />\n";
-
-          fs << "<text x='" <<  x - 10  << "' y='" << graph_height + 10
-               << "' font-family='times' font-size='10' fill='white'>"
-               <<  std::fixed << std::setprecision(2) << x_cord_dataspace << "</text>\n";
-
-      }
-
-
+    quicksvg::detail::write_gridlines(fs, 8, 10, xScale, yScale, a, b, min_val, max_val,
+                                      graph_width, graph_height, margin_left);
     fs  << "<path d='M" << xScale(xys[0].first) << " " << yScale(xys[0].second);
     for (size_t i = 1; i < xys.size(); ++i) {
         // Yes, this is linear interpolation.
@@ -128,6 +83,5 @@ void plot_fn(F f, double a, double b, std::string const & title, std::string con
        << "</g>\n"
        << "</svg>\n";
     fs.close();
-
 }
 #endif
