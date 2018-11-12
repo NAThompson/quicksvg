@@ -17,6 +17,11 @@ Here's an example of a time series:
 ![Alt text](./examples/sin_cos_time_series.svg)
 
 
+Here's an example of a ULP accuracy plot:
+
+![Alt text](./examples/ulp_lambert_w0_0_mil.svg)
+
+
 How do we graph a function?
 
 ```cpp
@@ -57,4 +62,19 @@ quicksvg::plot_time_series pts(start_time, time_step, title, filename);
 pts.add_dataset(v);
 pts.add_dataset(u, /* connect the dots? */ false, "lime", "lightgreen");
 pts.write_all();
+```
+
+How do we create a ULP accuracy plot?
+
+```cpp
+#include "quicksvg/ulp_plot.hpp"
+// ...
+int samples = 25000;
+
+a = 0;
+b = 1000000;
+title = "ULP accuracy of double precision Lambert W₀ on [0, 10⁶)";
+filename = "examples/ulp_lambert_w0_0_mil.svg";
+std::cout << title << "\n";
+quicksvg::ulp_plot(lambert_w0<double>, lambert_w0<float128>, a, b, title, filename, samples);
 ```
