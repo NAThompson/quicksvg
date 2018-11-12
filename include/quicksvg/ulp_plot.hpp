@@ -83,7 +83,7 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
         }
     }
 
-    std::cout << std::setprecision(std::numeric_limits<Real>::digits10 + 3);
+    std::cout << std::setprecision(std::numeric_limits<Real>::digits10 + 2);
     std::cout << "The highest-error abscissa on the interval [" << min_x << ", " << max_x << "] is " << worst_abscissa << ", having ULP distance from true value of " << worst_ulp_dist << ".\n";
     std::cout << "The true value is " << f_hi_accuracy(static_cast<float128>(worst_abscissa)) << ", but was calculated to be " << f_lo_accuracy(worst_abscissa) << ".\n";
 
@@ -108,9 +108,41 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
          << "' x2='" << graph_width << "' y2='" << x_axis_loc
          << "' stroke='gray' stroke-width='1' />\n";
 
-    detail::write_gridlines(fs, 8, 10, x_scale, y_scale, min_x, max_x,
-                            static_cast<double>(min_y), static_cast<double>(max_y), graph_width, graph_height, margin_left);
+    if (worst_ulp_dist > 3)
+    {
+        detail::write_gridlines(fs, 8, 10, x_scale, y_scale, min_x, max_x,
+                                static_cast<double>(min_y), static_cast<double>(max_y), graph_width, graph_height, margin_left);
+    }
+    else
+    {
+      std::vector<double> ys{-3.0, -2.5, -2.0, -1.5, -1.0, -0.5, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0};
+      for (size_t i = 0; i < ys.size(); ++i) {
+          if (min_y <= ys[i] && ys[i] <= max_y) {
+            double y_cord_dataspace = ys[i];
+            double y = y_scale(y_cord_dataspace);
+            fs << "<line x1='0' y1='" << y << "' x2='" << graph_width
+               << "' y2='" << y
+               << "' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />\n";
 
+            fs << "<text x='" <<  -margin_left/2 + 5 << "' y='" << y - 3
+               << "' font-family='times' font-size='10' fill='white' transform='rotate(-90 "
+               << -margin_left/2 + 11 << " " << y + 5 << ")'>"
+               <<  std::fixed << std::setprecision(2) << y_cord_dataspace << "</text>\n";
+            }
+       }
+       int vertical_lines = 10;
+       for (int i = 1; i <= vertical_lines; ++i) {
+           double x_cord_dataspace = min_x +  ((max_x - min_x)*i)/vertical_lines;
+           double x = x_scale(x_cord_dataspace);
+           fs << "<line x1='" << x << "' y1='0' x2='" << x
+              << "' y2='" << graph_height
+              << "' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />\n";
+
+            fs << "<text x='" <<  x - 10  << "' y='" << graph_height + 10
+                 << "' font-family='times' font-size='10' fill='white'>"
+                 <<  std::fixed << std::setprecision(2) << x_cord_dataspace << "</text>\n";
+        }
+    }
 
     for (size_t j = 0; j < samples; ++j)
     {
