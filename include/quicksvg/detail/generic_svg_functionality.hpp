@@ -39,7 +39,7 @@ void write_gridlines(std::ofstream& fs, int horizontal_lines, int vertical_lines
       fs << "<text x='" <<  -margin_left/2 + 5 << "' y='" << y - 3
          << "' font-family='times' font-size='10' fill='white' transform='rotate(-90 "
          << -margin_left/2 + 11 << " " << y + 5 << ")'>"
-         <<  std::fixed << std::setprecision(2) << y_cord_dataspace << "</text>\n";
+         << std::setprecision(4) << y_cord_dataspace << "</text>\n";
    }
 
    for (int i = 1; i <= vertical_lines; ++i) {
@@ -51,7 +51,7 @@ void write_gridlines(std::ofstream& fs, int horizontal_lines, int vertical_lines
 
         fs << "<text x='" <<  x - 10  << "' y='" << graph_height + 10
              << "' font-family='times' font-size='10' fill='white'>"
-             <<  std::fixed << std::setprecision(2) << x_cord_dataspace << "</text>\n";
+             << std::setprecision(4) << x_cord_dataspace << "</text>\n";
     }
 }
 

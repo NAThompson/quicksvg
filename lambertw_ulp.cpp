@@ -14,12 +14,21 @@ using boost::math::constants::exp_minus_one;
 
 int main()
 {
+    double divider = -0.3667;
     int samples = 25000;
     double a = -exp_minus_one<double>();
-    double b = 0;
-    std::string title = "ULP accuracy of double precision Lambert W₀ on (-1/e, 0)";
+    double b = divider;
+    std::string title = "ULP accuracy of double precision Lambert W₀ on (-1/e, -0.3667)";
     std::cout << title << "\n";
-    std::string filename = "examples/ulp_lambert_w0_1e_0.svg";
+    std::string filename = "examples/ulp_lambert_w0_1e_3667.svg";
+    quicksvg::ulp_plot(lambert_w0<double>, lambert_w0<float128>, a, b, title, filename, samples);
+
+
+    a = divider;
+    b = 0;
+    title = "ULP accuracy of double precision Lambert W₀ on (-0.3667,0)";
+    std::cout << title << "\n";
+    filename = "examples/ulp_lambert_w0_3667_0.svg";
     quicksvg::ulp_plot(lambert_w0<double>, lambert_w0<float128>, a, b, title, filename, samples);
 
     a = 0;
@@ -30,18 +39,33 @@ int main()
     quicksvg::ulp_plot(lambert_w0<double>, lambert_w0<float128>, a, b, title, filename, samples);
 
     a = -exp_minus_one<double>();
+    b = divider;
+    title = "ULP accuracy of double precision Lambert W₋₁ on [-1/e, -0.3667)";
+    filename = "examples/ulp_lambert_wm1_1e_3667.svg";
+    std::cout << title << "\n";
+    quicksvg::ulp_plot(lambert_wm1<double>, lambert_wm1<float128>, a, b, title, filename, samples);
+
+    a = divider;
     b = 0;
-    title = "ULP accuracy of double precision Lambert W₋₁ on [-1/e, 0)";
-    filename = "examples/ulp_lambert_wm1.svg";
+    title = "ULP accuracy of double precision Lambert W₋₁ on [-0.3667, 0)";
+    filename = "examples/ulp_lambert_wm1_3667_0.svg";
     std::cout << title << "\n";
     quicksvg::ulp_plot(lambert_wm1<double>, lambert_wm1<float128>, a, b, title, filename, samples);
 
     a = -exp_minus_one<double>();
-    b = 0;
-    title = "ULP accuracy of double precision Lambert W₀\u2032 on [-1/e, 0)";
-    filename = "examples/ulp_lambert_w0_prime_1e_0.svg";
+    b = divider;
+    title = "ULP accuracy of double precision Lambert W₀\u2032 on [-1/e, -0.3667)";
+    filename = "examples/ulp_lambert_w0_prime_1e_3667.svg";
     std::cout << title << "\n";
     quicksvg::ulp_plot(lambert_w0_prime<double>, lambert_w0_prime<float128>, a, b, title, filename, samples);
+
+    a = divider;
+    b = 0;
+    title = "ULP accuracy of double precision Lambert W₀\u2032 on [-0.3667, 0)";
+    filename = "examples/ulp_lambert_w0_prime_3667_0.svg";
+    std::cout << title << "\n";
+    quicksvg::ulp_plot(lambert_w0_prime<double>, lambert_w0_prime<float128>, a, b, title, filename, samples);
+
 
     a = 0;
     b = 1000000;
@@ -51,9 +75,16 @@ int main()
     quicksvg::ulp_plot(lambert_w0_prime<double>, lambert_w0_prime<float128>, a, b, title, filename, samples);
 
     a = -exp_minus_one<double>();
+    b = divider;
+    title = "ULP accuracy of double precision Lambert W₋₁\u2032 on [-1/e, -0.3667)";
+    filename = "examples/ulp_lambert_wm1_prime_1e_3667.svg";
+    std::cout << title << "\n";
+    quicksvg::ulp_plot(lambert_wm1_prime<double>, lambert_wm1_prime<float128>, a, b, title, filename, samples);
+
+    a = divider;
     b = 0;
-    title = "ULP accuracy of double precision Lambert W₋₁\u2032 on [-1/e, 0)";
-    filename = "examples/ulp_lambert_wm1_prime_1e_0.svg";
+    title = "ULP accuracy of double precision Lambert W₋₁\u2032 on [-0.3667, 0)";
+    filename = "examples/ulp_lambert_wm1_prime_3667_0.svg";
     std::cout << title << "\n";
     quicksvg::ulp_plot(lambert_wm1_prime<double>, lambert_wm1_prime<float128>, a, b, title, filename, samples);
 

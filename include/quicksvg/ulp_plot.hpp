@@ -127,7 +127,7 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
             fs << "<text x='" <<  -margin_left/2 + 5 << "' y='" << y - 3
                << "' font-family='times' font-size='10' fill='white' transform='rotate(-90 "
                << -margin_left/2 + 11 << " " << y + 5 << ")'>"
-               <<  std::fixed << std::setprecision(2) << y_cord_dataspace << "</text>\n";
+               <<  std::setprecision(4) << y_cord_dataspace << "</text>\n";
             }
        }
        int vertical_lines = 10;
@@ -140,7 +140,7 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
 
             fs << "<text x='" <<  x - 10  << "' y='" << graph_height + 10
                  << "' font-family='times' font-size='10' fill='white'>"
-                 <<  std::fixed << std::setprecision(2) << x_cord_dataspace << "</text>\n";
+                 << std::setprecision(4) << x_cord_dataspace << "</text>\n";
         }
     }
 
