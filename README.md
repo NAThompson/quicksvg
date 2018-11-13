@@ -2,15 +2,9 @@
 
 This is a tiny library for generating SVG files from within C++. It plots time series, graphs functions, and plots ULP accuracy. That's it. If you use it, you should think "huh, that kinda did what I wanted", and accept that the result is good enough, or you should give up immediately.
 
-Here's some examples of a function graphed:
+Here's an example of a function graphed:
 
 ![Alt text](./examples/1F1_3.svg)
-
-![Alt text](./examples/1F1_2.svg)
-
-![Alt text](./examples/1F1_1.svg)
-
-![Alt text](./examples/1F1_4.svg)
 
 Here's an example of a time series:
 
@@ -75,6 +69,5 @@ a = 0;
 b = 1000000;
 title = "ULP accuracy of double precision Lambert W₀ on [0, 10⁶)";
 filename = "examples/ulp_lambert_w0_0_mil.svg";
-std::cout << title << "\n";
 quicksvg::ulp_plot(lambert_w0<double>, lambert_w0<float128>, a, b, title, filename, samples);
 ```
