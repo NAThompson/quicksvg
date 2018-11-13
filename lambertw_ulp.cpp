@@ -15,7 +15,7 @@ using boost::math::constants::exp_minus_one;
 int main()
 {
     double divider = -0.3667;
-    int samples = 25000;
+    int samples = 15000;
     double a = -exp_minus_one<double>();
     double b = divider;
     std::string title = "ULP accuracy of double precision Lambert W₀ on (-1/e, -0.3667)";

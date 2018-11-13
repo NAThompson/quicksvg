@@ -35,11 +35,23 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
     int graph_height = height - margin_bottom - margin_top;
     int graph_width = width - margin_left - margin_right;
 
-    detail::write_prelude(fs, title, width, height, margin_top);
+    fs << "<?xml version=\"1.0\" encoding='UTF-8' ?>\n"
+       << "<svg xmlns='http://www.w3.org/2000/svg' width='"
+       << width << "' height='"
+       << height << "'>\n"
+       << "<style>svg { background-color: black; } circle { fill: steelblue; r: 1; }\n"
+       << "</style>\n"
+       // Title:
+       << "<text x='" << floor(width/2)
+       << "' y='" << floor(margin_top/2)
+       << "' font-family='Palatino' font-size='25' fill='white'  alignment-baseline='middle' text-anchor='middle'>"
+       << title
+       << "</text>\n";
 
 
-    std::random_device rd;  //Will be used to obtain a seed for the random number engine
-    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
     std::uniform_real_distribution<Real> dis(min_x, max_x);
 
     std::vector<float128> ulp(samples);
@@ -51,8 +63,6 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
     {
         abscissas[i] = dis(gen);
     }
-    // Unnecessary since we're not connecting any dots:
-    //std::sort(abscissas.begin(), abscissas.end());
 
     Real worst_abscissa = 0;
     float128 worst_ulp_dist = 0;
@@ -102,11 +112,11 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
     fs << "<g transform='translate(" << margin_left << ", " << margin_top << ")'>\n";
          // y-axis:
     fs  << "<line x1='0' y1='0' x2='0' y2='" << graph_height
-          << "' stroke='gray' stroke-width='1' />\n";
+          << "' stroke='gray' stroke-width='1'/>\n";
     Real x_axis_loc = y_scale(0);
     fs << "<line x1='0' y1='" << x_axis_loc
          << "' x2='" << graph_width << "' y2='" << x_axis_loc
-         << "' stroke='gray' stroke-width='1' />\n";
+         << "' stroke='gray' stroke-width='1'/>\n";
 
     if (worst_ulp_dist > 3)
     {
@@ -149,8 +159,7 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
         Real x = x_scale(abscissas[j]);
         Real y = y_scale(ulp[j]);
 
-        fs << "<circle cx='" << x << "' cy='" << y
-             << "' r='1' fill='steelblue' />\n";
+        fs << "<circle cx='" << x << "' cy='" << y << "'/>";
     }
 
     fs << "</g>\n"
