@@ -39,7 +39,7 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
        << "<svg xmlns='http://www.w3.org/2000/svg' width='"
        << width << "' height='"
        << height << "'>\n"
-       << "<style>svg { background-color: black; } circle { fill: steelblue; r: 1; }\n"
+       << "<style>svg { background-color: black; } svg circle { fill: steelblue; r: 1; }\n"
        << "</style>\n"
        // Title:
        << "<text x='" << floor(width/2)
