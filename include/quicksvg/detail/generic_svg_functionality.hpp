@@ -3,11 +3,13 @@
 
 #include <iomanip>
 #include <fstream>
+#include <cmath>
 
 namespace quicksvg { namespace detail {
 
-void write_prelude(std::ofstream& fs, std::string title, int width, int height, int margin_top)
+void write_prelude(std::ofstream& fs, std::string const & title, int width, int height, int margin_top)
 {
+    using std::floor;
     fs << "<?xml version=\"1.0\" encoding='UTF-8' ?>\n"
        << "<svg xmlns='http://www.w3.org/2000/svg' width='"
        << width << "' height='"
@@ -23,15 +25,15 @@ void write_prelude(std::ofstream& fs, std::string title, int width, int height, 
        << "</text>\n";
 }
 
-template<class F1, class F2>
+template<class F1, class F2, class Real>
 void write_gridlines(std::ofstream& fs, int horizontal_lines, int vertical_lines,
-                     F1 x_scale, F2 y_scale, double min_x, double max_x, double min_y, double max_y,
+                     F1 x_scale, F2 y_scale, Real min_x, Real max_x, Real min_y, Real max_y,
                      int graph_width, int graph_height, int margin_left)
 {
   // Make a grid:
   for (int i = 1; i <= horizontal_lines; ++i) {
-      double y_cord_dataspace = min_y +  ((max_y - min_y)*i)/horizontal_lines;
-      double y = y_scale(y_cord_dataspace);
+      Real y_cord_dataspace = min_y +  ((max_y - min_y)*i)/horizontal_lines;
+      Real y = y_scale(y_cord_dataspace);
       fs << "<line x1='0' y1='" << y << "' x2='" << graph_width
          << "' y2='" << y
          << "' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />\n";
@@ -43,8 +45,8 @@ void write_gridlines(std::ofstream& fs, int horizontal_lines, int vertical_lines
    }
 
    for (int i = 1; i <= vertical_lines; ++i) {
-       double x_cord_dataspace = min_x +  ((max_x - min_x)*i)/vertical_lines;
-       double x = x_scale(x_cord_dataspace);
+       Real x_cord_dataspace = min_x +  ((max_x - min_x)*i)/vertical_lines;
+       Real x = x_scale(x_cord_dataspace);
        fs << "<line x1='" << x << "' y1='0' x2='" << x
           << "' y2='" << graph_height
           << "' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />\n";
