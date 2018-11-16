@@ -78,6 +78,16 @@ public:
     {
 
       // Maps [a,b] to [0, graph_width]
+      if (m_max_y == m_min_y)
+      {
+          throw std::logic_error("The data minimum and maximum are the same. The resulting graph will have zero height.\n");
+      }
+
+      if (m_max_y - m_min_y <  0)
+      {
+          throw std::logic_error("The data max is less than the data minimum. Did you add data to the graph?\n");
+      }
+
       auto x_scale = [this](Real x)->Real
       {
           return ((x-m_min_x)/(m_max_x - m_min_x))*static_cast<Real>(m_graph_width);
