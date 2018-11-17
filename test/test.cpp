@@ -1,11 +1,14 @@
 #include <boost/math/constants/constants.hpp>
+#include <boost/math/special_functions/gamma.hpp>
 #include <boost/multiprecision/cpp_bin_float.hpp>
 #include "quicksvg/graph_fn.hpp"
 #include "quicksvg/plot_time_series.hpp"
+#include "quicksvg/ulp_plot.hpp"
 #include "gtest/gtest.h"
 
 using boost::math::constants::pi;
 using boost::multiprecision::cpp_bin_float_50;
+using boost::math::tgamma;
 
 TEST(graph_fn, types) {
     {
@@ -143,6 +146,34 @@ TEST(PlotTimeSeries, types)
         pts.add_dataset(v);
         pts.add_dataset(u, false, "lime", "lightgreen");
         pts.write_all();
+    }
+}
+
+TEST(ULPPlot, types)
+{
+    {
+        int samples = 10000;
+        float a = 1;
+        float b = 15;
+        std::string title = "ULP accuracy of float precision gamma on [1, 15]";
+        std::string filename = "examples/ulp_gamma_float.svg";
+        quicksvg::ulp_plot(tgamma<float>, tgamma<cpp_bin_float_50>, a, b, title, filename, samples);
+    }
+    {
+        int samples = 10000;
+        double a = 1;
+        double b = 15;
+        std::string title = "ULP accuracy of double precision sin on [1, 15]";
+        std::string filename = "examples/ulp_gamma_double.svg";
+        quicksvg::ulp_plot(tgamma<double>, tgamma<cpp_bin_float_50>, a, b, title, filename, samples);
+    }
+    {
+        int samples = 10000;
+        long double a = 1;
+        long double b = 15;
+        std::string title = "ULP accuracy of long double precision sin on [1, 15]";
+        std::string filename = "examples/ulp_gamma_long_double.svg";
+        quicksvg::ulp_plot(tgamma<long double>, tgamma<cpp_bin_float_50>, a, b, title, filename, samples);
     }
 }
 

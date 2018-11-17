@@ -33,7 +33,7 @@ void write_gridlines(std::ofstream& fs, int horizontal_lines, int vertical_lines
   // Make a grid:
   for (int i = 1; i <= horizontal_lines; ++i) {
       Real y_cord_dataspace = min_y +  ((max_y - min_y)*i)/horizontal_lines;
-      Real y = y_scale(y_cord_dataspace);
+      auto y = y_scale(y_cord_dataspace);
       fs << "<line x1='0' y1='" << y << "' x2='" << graph_width
          << "' y2='" << y
          << "' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />\n";
