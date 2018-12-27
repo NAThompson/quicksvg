@@ -55,6 +55,8 @@ public:
             using std::isnan;
             if (isnan(v[i]))
             {
+                // This throw leaves a partially written file on disk.
+                // The class should instead write the whole thing to an ostringstream, and then write the result to disk.
                 std::ostringstream oss;
                 oss << "Evaluating your function at x = " << x << " returned a NaN; which cannot be graphed.\n";
                 throw std::domain_error(oss.str());
