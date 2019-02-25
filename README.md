@@ -65,9 +65,9 @@ How do we create a ULP accuracy plot?
 // ...
 int samples = 25000;
 
-a = 0;
-b = 1000000;
-title = "ULP accuracy of double precision Lambert W₀ on [0, 10⁶)";
-filename = "examples/ulp_lambert_w0_0_mil.svg";
-quicksvg::ulp_plot(lambert_w0<double>, lambert_w0<float128>, a, b, title, filename, samples);
+double a = 0;
+double b = 1000000;
+std::string title = "ULP accuracy of double precision Lambert W₀ on [0, 10⁶)";
+std::string filename = "examples/ulp_lambert_w0_0_mil.svg";
+quicksvg::ulp_plot(lambert_w0<double>, lambert_w0<boost::multiprecision::cpp_bin_float_50>, a, b, title, filename, samples);
 ```
