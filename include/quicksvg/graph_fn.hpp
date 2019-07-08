@@ -18,7 +18,8 @@ public:
              m_min_x{x_min},
              m_max_x{x_max},
              m_samples{samples},
-             m_is_written{false}
+             m_is_written{false},
+             m_stroke_width{1}
     {
         m_fs.open(filename);
         assert(m_max_x > m_min_x);
@@ -35,6 +36,10 @@ public:
         m_max_y = std::numeric_limits<Real>::lowest();
 
         detail::write_prelude(m_fs, title, width, height, m_margin_top);
+    }
+
+    void set_stroke_width(int sw) {
+      m_stroke_width = sw;
     }
 
     template<class F>
@@ -138,7 +143,7 @@ public:
               }
               m_fs << " L" << t << " " << y;
           }
-          m_fs << "' stroke='" << stroke << "' stroke-width='3' fill='none'></path>\n";
+          m_fs << "' stroke='" << stroke << "' stroke-width='" << m_stroke_width << "' fill='none'></path>\n";
       }
 
       m_fs << "</g>\n"
@@ -172,6 +177,7 @@ private:
     int m_margin_right;
     int m_graph_width;
     int m_graph_height;
+    int m_stroke_width;
 };
 
 } // namespace
