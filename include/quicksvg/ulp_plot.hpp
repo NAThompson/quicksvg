@@ -20,7 +20,7 @@ template<class F1, class F2, class Real=double>
 void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
               std::string const & title,
               std::string const & filename,
-              size_t samples = 10000, int width = 1100)
+              size_t samples = 10000, int width = 1100, int clip = -1)
 {
     using boost::multiprecision::cpp_bin_float_50;
     std::ofstream fs;
@@ -77,19 +77,46 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
 
         cpp_bin_float_50 ulp_dist = (y_lo_ac - y_hi_ac)/dist;
 
-        ulp[i] = ulp_dist;
+        if (clip > 0) {
+            if (abs(ulp_dist) > clip) {
+                if (ulp_dist > 0) {
+                    ulp[i] = clip;
+                }
+                else {
+                    ulp[i] = -clip;
+                }
+            }
+            else {
+                ulp[i] = ulp_dist;
+            }
+        }
+        else {
+            ulp[i] = ulp_dist;
+        }
+
 
         if (ulp_dist < min_y)
         {
             min_y = ulp_dist;
+            if (clip > 0 && min_y < -clip) {
+                min_y = -clip;
+            }
         }
         if (ulp_dist > max_y)
         {
             max_y = ulp_dist;
+            if (clip > 0 && max_y > clip) {
+                max_y = clip;
+            }
         }
         if(abs(ulp_dist) > worst_ulp_dist) {
           worst_ulp_dist = abs(ulp_dist);
           worst_abscissa = x;
+          if (clip > 0) {
+              if(worst_ulp_dist > clip) {
+                  worst_ulp_dist = clip;
+              }
+          }
         }
     }
 
