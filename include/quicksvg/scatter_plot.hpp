@@ -39,7 +39,7 @@ public:
     }
 
     void add_dataset(std::vector<std::pair<Real, Real>> const & v, bool connect_the_dots = false,
-                     std::string connect_color = "steelblue", std::string dot_color="orange")
+                     std::string dot_color = "steelblue", std::string connect_color="orange")
     {
         if (m_is_written)
         {
