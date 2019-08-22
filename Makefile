@@ -1,6 +1,6 @@
 CXX:= clang++
 CXXFLAGS := -O3 --std=gnu++17 -g -Wall -Wfatal-errors  -fsanitize=undefined -fsanitize=address
-INCFLAGS := -I./include -I../boost/libs/math/include/ -I../boost/libs/multiprecision/include/ -I../boost/libs/config/include -I../boost/libs/mpl/include -I../boost/libs/core/include -I/usr/local/include
+INCFLAGS := -I./include -I../boost/ -I/usr/local/include
 PREFIX = /usr/local
 
 

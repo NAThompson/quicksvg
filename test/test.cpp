@@ -4,6 +4,7 @@
 #include "quicksvg/graph_fn.hpp"
 #include "quicksvg/plot_time_series.hpp"
 #include "quicksvg/ulp_plot.hpp"
+#include "quicksvg/scatter_plot.hpp"
 #include "gtest/gtest.h"
 
 using boost::math::constants::pi;
@@ -174,6 +175,27 @@ TEST(ULPPlot, types)
         std::string title = "ULP accuracy of long double precision sin on [1, 15]";
         std::string filename = "examples/ulp_gamma_long_double.svg";
         quicksvg::ulp_plot(tgamma<long double>, tgamma<cpp_bin_float_50>, a, b, title, filename, samples);
+    }
+}
+
+TEST(ScatterPlot, types)
+{
+    {
+        int n = 500;
+        std::vector<std::pair<double, double>> v(n);
+        std::random_device rd;
+        std::uniform_real_distribution<double> dis(-0.01, 0.01);
+
+        for (size_t i = 0; i < n; ++i) {
+            double x = std::sin(6.28*i/n) + dis(rd);
+            double y = std::cos(6.28*i/n) + dis(rd);
+            v[i] = {x, y};
+        }
+        std::string title= "Scatter plot";
+        std::string filename = "examples/scatter_plot.svg";
+        quicksvg::scatter_plot<double> scatter(title, filename);
+        scatter.add_dataset(v);
+        scatter.write_all();
     }
 }
 
