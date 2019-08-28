@@ -29,7 +29,7 @@ void write_xlabel(std::ofstream& fs, std::string const & x_label, int width, int
 {
     using std::floor;
     fs << "<text x='" << floor(width/2)
-       << "' y='" << floor(height - margin_bottom/2)
+       << "' y='" << floor(height - margin_bottom/4)
        << "' font-family='Palatino' font-size='15' fill='white'  alignment-baseline='middle' text-anchor='middle'>"
        << x_label
        << "</text>\n";

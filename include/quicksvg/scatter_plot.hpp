@@ -33,9 +33,9 @@ public:
         if (title == "") {
             m_margin_top = 10;
         }
-        m_margin_left = 40;
+        m_margin_left = 30;
         if (y_label == "") {
-            m_margin_left = 25;
+            m_margin_left = 20;
         }
         m_margin_bottom = 40;
         if (x_label == "") {
