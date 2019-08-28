@@ -132,7 +132,7 @@ public:
             {
                 Real t = x_scale(v[j].first);
                 m_fs << "<circle cx='" << t << "' cy='" << y_scale(v[j].second)
-                     << "' r='2' fill='" << dot_color << "' />\n";
+                     << "' r='1' fill='" << dot_color << "' />\n";
             }
         }
 
