@@ -1,4 +1,4 @@
-CXX:= clang++
+CXX:= g++
 CXXFLAGS := -O3 --std=gnu++17 -g -Wall -Wfatal-errors  -fsanitize=undefined -fsanitize=address
 INCFLAGS := -I./include -I../boost/ -I/usr/local/include
 PREFIX = /usr/local

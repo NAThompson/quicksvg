@@ -25,6 +25,26 @@ void write_prelude(std::ofstream& fs, std::string const & title, int width, int 
        << "</text>\n";
 }
 
+void write_xlabel(std::ofstream& fs, std::string const & x_label, int width, int height, int margin_bottom)
+{
+    using std::floor;
+    fs << "<text x='" << floor(width/2)
+       << "' y='" << floor(height - margin_bottom/2)
+       << "' font-family='Palatino' font-size='15' fill='white'  alignment-baseline='middle' text-anchor='middle'>"
+       << x_label
+       << "</text>\n";
+}
+
+void write_ylabel(std::ofstream& fs, std::string const & y_label, int width, int height, int margin_left)
+{
+    using std::floor;
+    fs << "<text x='0' y='0' font-family='Palatino' font-size='15' fill='white' alignment-baseline='middle' text-anchor='middle' transform='translate("
+       << margin_left/4 << ", " << height/2 << ")rotate(-90)'>"
+       << y_label
+       << "</text>\n";
+}
+
+
 template<class F1, class F2, class Real>
 void write_gridlines(std::ofstream& fs, int horizontal_lines, int vertical_lines,
                      F1 x_scale, F2 y_scale, Real min_x, Real max_x, Real min_y, Real max_y,
@@ -38,9 +58,9 @@ void write_gridlines(std::ofstream& fs, int horizontal_lines, int vertical_lines
          << "' y2='" << y
          << "' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />\n";
 
-      fs << "<text x='" <<  -margin_left/2 + 5 << "' y='" << y - 3
+      fs << "<text x='" <<  -margin_left/4 + 5 << "' y='" << y - 3
          << "' font-family='times' font-size='10' fill='white' transform='rotate(-90 "
-         << -margin_left/2 + 11 << " " << y + 5 << ")'>"
+         << -margin_left/4 + 11 << " " << y + 5 << ")'>"
          << std::setprecision(4) << y_cord_dataspace << "</text>\n";
    }
 

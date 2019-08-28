@@ -64,7 +64,6 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
         abscissas[i] = dis(gen);
     }
 
-    Real worst_abscissa = 0;
     cpp_bin_float_50 worst_ulp_dist = 0;
     for(size_t i = 0; i < samples; ++i)
     {
@@ -111,7 +110,6 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
         }
         if(abs(ulp_dist) > worst_ulp_dist) {
           worst_ulp_dist = abs(ulp_dist);
-          worst_abscissa = x;
           if (clip > 0) {
               if(worst_ulp_dist > clip) {
                   worst_ulp_dist = clip;

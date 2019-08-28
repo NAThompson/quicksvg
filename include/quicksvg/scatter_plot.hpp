@@ -16,7 +16,10 @@ class scatter_plot
 {
 public:
     scatter_plot(std::string const & title,
-                 std::string const & filename, int width = 1100) :
+                 std::string const & filename,
+                 std::string const & x_label = "",
+                 std::string const & y_label = "",
+                 int width = 1100) :
                     m_min_x{std::numeric_limits<Real>::max()},
                     m_max_x{std::numeric_limits<Real>::lowest()},
                     m_min_y{std::numeric_limits<Real>::max()},
@@ -27,8 +30,17 @@ public:
         m_fs.open(filename);
 
         m_margin_top = 40;
-        m_margin_left = 25;
-        m_margin_bottom = 20;
+        if (title == "") {
+            m_margin_top = 10;
+        }
+        m_margin_left = 40;
+        if (y_label == "") {
+            m_margin_left = 25;
+        }
+        m_margin_bottom = 40;
+        if (x_label == "") {
+            m_margin_bottom = 20;
+        }
         m_margin_right = 20;
 
         int height = static_cast<int>(floor(Real(width)/1.61803));
@@ -36,6 +48,15 @@ public:
         m_graph_width = width - m_margin_left - m_margin_right;
 
         detail::write_prelude(m_fs, title, width, height, m_margin_top);
+
+        if (x_label != "") {
+            detail::write_xlabel(m_fs, x_label, width, height, m_margin_bottom);
+        }
+
+        if (y_label != "") {
+            detail::write_ylabel(m_fs, y_label, width, height, m_margin_left);
+        }
+
     }
 
     void add_dataset(std::vector<std::pair<Real, Real>> const & v, bool connect_the_dots = false,

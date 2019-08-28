@@ -186,7 +186,7 @@ TEST(ScatterPlot, types)
         std::random_device rd;
         std::uniform_real_distribution<double> dis(-0.01, 0.01);
 
-        for (size_t i = 0; i < n; ++i) {
+        for (int i = 0; i < n; ++i) {
             double x = std::sin(6.28*i/n) + dis(rd);
             double y = std::cos(6.28*i/n) + dis(rd);
             v[i] = {x, y};
@@ -197,6 +197,46 @@ TEST(ScatterPlot, types)
         scatter.add_dataset(v);
         scatter.write_all();
     }
+
+    {
+        int n = 500;
+        std::vector<std::pair<double, double>> v(n);
+        std::random_device rd;
+        std::uniform_real_distribution<double> dis(-0.01, 0.01);
+
+        for (int i = 0; i < n; ++i) {
+            double x = std::sin(6.28*i/n) + dis(rd);
+            double y = std::cos(6.28*i/n) + dis(rd);
+            v[i] = {x, y};
+        }
+        std::string title= "Scatter plot";
+        std::string filename = "examples/scatter_plot_xlabel.svg";
+        std::string x_label = "x";
+        quicksvg::scatter_plot<double> scatter(title, filename, x_label);
+        scatter.add_dataset(v);
+        scatter.write_all();
+    }
+
+    {
+        int n = 500;
+        std::vector<std::pair<double, double>> v(n);
+        std::random_device rd;
+        std::uniform_real_distribution<double> dis(-0.01, 0.01);
+
+        for (int i = 0; i < n; ++i) {
+            double x = std::sin(6.28*i/n) + dis(rd);
+            double y = std::cos(6.28*i/n) + dis(rd);
+            v[i] = {x, y};
+        }
+        std::string title= "Scatter plot";
+        std::string filename = "examples/scatter_plot_ylabel.svg";
+        std::string x_label = "";
+        std::string y_label = "y";
+        quicksvg::scatter_plot<double> scatter(title, filename, x_label, y_label);
+        scatter.add_dataset(v);
+        scatter.write_all();
+    }
+
 }
 
 
