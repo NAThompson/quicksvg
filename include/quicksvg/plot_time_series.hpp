@@ -120,14 +120,14 @@ public:
                     Real t = x_scale(m_start_time + j*m_time_step);
                     m_fs << " L" << t << " " << y_scale(v[j]);
                 }
-                m_fs << "' stroke='" << stroke << "' stroke-width='3' fill='none'></path>\n";
+                m_fs << "' stroke='" << stroke << "' stroke-width='1' fill='none'></path>\n";
             }
 
             for (size_t j = 0; j < v.size(); ++j)
             {
                 Real t = x_scale(m_start_time + j*m_time_step);
                 m_fs << "<circle cx='" << t << "' cy='" << y_scale(v[j])
-                     << "' r='2' fill='" << dot_color << "' />\n";
+                     << "' r='1' fill='" << dot_color << "' />\n";
             }
         }
 
