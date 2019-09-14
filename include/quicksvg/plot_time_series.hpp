@@ -25,6 +25,9 @@ public:
                     m_is_written{false}
 
     {
+        if (time_step <= 0) {
+            throw std::domain_error("time_step > 0 is required.");
+        }
         m_fs.open(filename);
 
         m_margin_top = 40;
