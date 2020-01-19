@@ -7,6 +7,7 @@
 #include <utility>
 #include <fstream>
 #include <algorithm>
+#include <iostream>
 #include <quicksvg/detail/generic_svg_functionality.hpp>
 
 namespace quicksvg {
