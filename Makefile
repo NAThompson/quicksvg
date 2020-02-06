@@ -1,4 +1,4 @@
-CXX:= g++
+CXX:= g++-9
 CXXFLAGS := -O3 --std=gnu++17 -g -Wall -Wfatal-errors  -fsanitize=undefined -fsanitize=address
 INCFLAGS := -I./include -I../boost/ -I/usr/local/include
 PREFIX = /usr/local
@@ -9,7 +9,7 @@ all: plot_fn.x
 .PHONY: plot_fn.x
 plot_fn.x: lambertw_ulp.cpp
 	rm -rf *.x *.svg *.x.dSYM examples/*.svg
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) $? -o $@
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) $? -o $@ -lquadmath
 	./plot_fn.x
 
 .PHONY: test.x
