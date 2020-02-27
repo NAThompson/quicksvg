@@ -19,14 +19,30 @@ public:
              m_max_x{x_max},
              m_samples{samples},
              m_is_written{false},
-             m_stroke_width{1}
+             m_stroke_width{1},
+             m_horizontal_lines{8},
+             m_vertical_lines{10}
     {
         m_fs.open(filename);
         assert(m_max_x > m_min_x);
+        if (samples < 10)
+        {
+            throw std::domain_error("Must have at least 10 samples; requested " + std::to_string(samples) + " samples");
+        }
+        if (width < 10)
+        {
+            throw std::domain_error("Width of graph is too small; requested width = " + std::to_string(width));
+        }
         int height = floor(double(width)/1.61803);
 
         m_margin_top = 40;
         m_margin_left = 25;
+        if (title.size() == 0)
+        {
+            m_margin_top = 10;
+            m_margin_left = 15;
+        }
+
         m_margin_bottom = 20;
         m_margin_right = 20;
         m_graph_height = height - m_margin_bottom - m_margin_top;
@@ -38,8 +54,15 @@ public:
         detail::write_prelude(m_fs, title, width, height, m_margin_top);
     }
 
-    void set_stroke_width(int sw) {
-      m_stroke_width = sw;
+    void set_stroke_width(int sw)
+    {
+        m_stroke_width = sw;
+    }
+
+    void set_gridlines(int horizonal_lines, int vertical_lines)
+    {
+        m_horizontal_lines = horizonal_lines;
+        m_vertical_lines = vertical_lines;
     }
 
     template<class F>
@@ -121,7 +144,7 @@ public:
            << "' x2='" << m_graph_width << "' y2='" << x_axis_loc
            << "' stroke='gray' stroke-width='1' />\n";
 
-      detail::write_gridlines(m_fs, 8, 10, x_scale, y_scale, m_min_x, m_max_x,
+      detail::write_gridlines(m_fs, m_horizontal_lines, m_vertical_lines, x_scale, y_scale, m_min_x, m_max_x,
                               m_min_y, m_max_y, m_graph_width, m_graph_height, m_margin_left);
 
 
@@ -157,7 +180,7 @@ public:
     {
         if (!m_is_written)
         {
-          std::cerr << "Did not write svg file to disk!\n";
+            this->write_all();
         }
     }
 
@@ -178,6 +201,8 @@ private:
     int m_graph_width;
     int m_graph_height;
     int m_stroke_width;
+    int m_horizontal_lines;
+    int m_vertical_lines;
 };
 
 } // namespace

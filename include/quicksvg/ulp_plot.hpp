@@ -19,9 +19,18 @@ template<class F1, class Real, class F2, class PreciseReal>
 void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
               std::string const & title,
               std::string const & filename,
-              size_t samples = 10000, int width = 1100, int clip = -1)
+              size_t samples = 10000, int width = 1100, int clip = -1, int horizontal_lines = 8, int vertical_lines = 10)
 {
     static_assert(sizeof(PreciseReal) >= sizeof(Real), "PreciseReal must have larger size than Real");
+    if (width <= 1)
+    {
+        throw std::domain_error("Width = " + std::to_string(width) + ", which is too small.");
+    }
+    if (samples <= 10)
+    {
+        throw std::domain_error("Must have at least 10 samples, samples = " + std::to_string(samples));
+    }
+
     std::ofstream fs;
     fs.open(filename);
     assert(max_x > min_x);
@@ -29,6 +38,11 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
 
     int margin_top = 40;
     int margin_left = 25;
+    if (title.size() == 0)
+    {
+        margin_top = 10;
+        margin_left = 15;
+    }
     int margin_bottom = 20;
     int margin_right = 20;
     int graph_height = height - margin_bottom - margin_top;
@@ -39,14 +53,16 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
        << width << "' height='"
        << height << "'>\n"
        << "<style>svg { background-color: black; } svg>g>circle { fill: steelblue !important; }\n"
-       << "</style>\n"
+       << "</style>\n";
        // Title:
-       << "<text x='" << floor(width/2)
+    if (title.size() > 0)
+    {
+    fs << "<text x='" << floor(width/2)
        << "' y='" << floor(margin_top/2)
        << "' font-family='Palatino' font-size='25' fill='white'  alignment-baseline='middle' text-anchor='middle'>"
        << title
        << "</text>\n";
-
+    }
 
 
     std::random_device rd;
@@ -75,20 +91,19 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
 
         PreciseReal ulp_dist = (y_lo_ac - y_hi_ac)/dist;
 
-        if (clip > 0) {
-            if (abs(ulp_dist) > clip) {
-                if (ulp_dist > 0) {
-                    ulp[i] = clip;
-                }
-                else {
-                    ulp[i] = -clip;
-                }
+        if (clip > 0)
+        {
+            if (abs(ulp_dist) > clip)
+            {
+                ulp[i] = std::numeric_limits<Real>::quiet_NaN();
             }
-            else {
+            else
+            {
                 ulp[i] = ulp_dist;
             }
         }
-        else {
+        else
+        {
             ulp[i] = ulp_dist;
         }
 
@@ -96,21 +111,26 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
         if (ulp_dist < min_y)
         {
             min_y = ulp_dist;
-            if (clip > 0 && min_y < -clip) {
+            if (clip > 0 && min_y < -clip)
+            {
                 min_y = -clip;
             }
         }
         if (ulp_dist > max_y)
         {
             max_y = ulp_dist;
-            if (clip > 0 && max_y > clip) {
+            if (clip > 0 && max_y > clip)
+            {
                 max_y = clip;
             }
         }
-        if(abs(ulp_dist) > worst_ulp_dist) {
+        if(abs(ulp_dist) > worst_ulp_dist)
+        {
           worst_ulp_dist = abs(ulp_dist);
-          if (clip > 0) {
-              if(worst_ulp_dist > clip) {
+          if (clip > 0)
+          {
+              if(worst_ulp_dist > clip)
+              {
                   worst_ulp_dist = clip;
               }
           }
@@ -144,7 +164,7 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
 
     if (worst_ulp_dist > 3)
     {
-        detail::write_gridlines(fs, 8, 10, x_scale, y_scale, min_x, max_x,
+        detail::write_gridlines(fs, horizontal_lines, vertical_lines, x_scale, y_scale, min_x, max_x,
                                 static_cast<Real>(min_y), static_cast<Real>(max_y), graph_width, graph_height, margin_left);
     }
     else
@@ -158,14 +178,14 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
                << "' y2='" << y
                << "' stroke='gray' stroke-width='1' opacity='0.5' stroke-dasharray='4' />\n";
 
-            fs << "<text x='" <<  -margin_left/2 + 5 << "' y='" << y - 3
+            fs << "<text x='" <<  -margin_left/2 << "' y='" << y - 3
                << "' font-family='times' font-size='10' fill='white' transform='rotate(-90 "
                << -margin_left/2 + 11 << " " << y + 5 << ")'>"
                <<  std::setprecision(4) << y_cord_dataspace << "</text>\n";
             }
        }
-       int vertical_lines = 10;
-       for (int i = 1; i <= vertical_lines; ++i) {
+       for (int i = 1; i <= vertical_lines; ++i)
+       {
            Real x_cord_dataspace = min_x +  ((max_x - min_x)*i)/vertical_lines;
            Real x = x_scale(x_cord_dataspace);
            fs << "<line x1='" << x << "' y1='0' x2='" << x
@@ -180,6 +200,11 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
 
     for (size_t j = 0; j < samples; ++j)
     {
+        using std::isnan;
+        if (isnan(ulp[j]))
+        {
+            continue;
+        }
         Real x = x_scale(abscissas[j]);
         PreciseReal y = y_scale(ulp[j]);
 

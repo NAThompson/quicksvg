@@ -20,11 +20,15 @@ int main()
     double b = divider;
     std::string title = "ULP accuracy of double precision Lambert W₀ on (-1/e, -0.3667)";
     std::cout << title << "\n";
+    title = "";
     std::string filename = "examples/ulp_lambert_w0_1e_3667.svg";
     auto flo = [](double x)->double { return lambert_w0<double>(x); };
     auto fhi = [](float128 x)->float128 { return lambert_w0<float128>(x); };
 
-    quicksvg::ulp_plot<decltype(flo), double, decltype(fhi), float128>(flo, fhi, a, b, title, filename, samples);
+    int clip = 3;
+    int horizontal_lines = 5;
+    int vertical_lines = 5;
+    quicksvg::ulp_plot<decltype(flo), double, decltype(fhi), float128>(flo, fhi, a, b, title, filename, samples, 1100, clip, horizontal_lines, vertical_lines);
 
 
     a = divider;
@@ -39,7 +43,7 @@ int main()
     title = "ULP accuracy of double precision Lambert W₀ on [0, 10⁶)";
     filename = "examples/ulp_lambert_w0_0_mil.svg";
     std::cout << title << "\n";
-    quicksvg::ulp_plot<decltype(flo), double, decltype(fhi), float128>(flo, fhi, a, b, title, filename, samples);
+    quicksvg::ulp_plot<decltype(flo), double, decltype(fhi), float128>(flo, fhi, a, b, title, filename, samples, 1100, -1, horizontal_lines, vertical_lines);
 
     a = -exp_minus_one<double>();
     b = divider;

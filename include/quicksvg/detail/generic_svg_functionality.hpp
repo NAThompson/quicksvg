@@ -16,13 +16,16 @@ void write_prelude(std::ofstream& fs, std::string const & title, int width, int 
        << height << "'>\n"
        // Black background; I don't want to go blind:
        << "<style>svg { background-color: black; }\n"
-       << "</style>\n"
+       << "</style>\n";
        // Title:
-       << "<text x='" << floor(width/2)
+    if (title.size() > 0)
+    {
+    fs << "<text x='" << floor(width/2)
        << "' y='" << floor(margin_top/2)
        << "' font-family='Palatino' font-size='25' fill='white'  alignment-baseline='middle' text-anchor='middle'>"
        << title
        << "</text>\n";
+    }
 }
 
 void write_xlabel(std::ofstream& fs, std::string const & x_label, int width, int height, int margin_bottom)
@@ -60,7 +63,7 @@ void write_gridlines(std::ofstream& fs, int horizontal_lines, int vertical_lines
 
       fs << "<text x='" <<  -margin_left/4 + 5 << "' y='" << y - 3
          << "' font-family='times' font-size='10' fill='white' transform='rotate(-90 "
-         << -margin_left/4 + 11 << " " << y + 5 << ")'>"
+         << -margin_left/4 + 8 << " " << y + 5 << ")'>"
          << std::setprecision(4) << y_cord_dataspace << "</text>\n";
    }
 
