@@ -19,7 +19,7 @@ template<class F1, class Real, class F2, class PreciseReal>
 void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
               std::string const & title,
               std::string const & filename,
-              size_t samples = 10000, int width = 1100, int clip = -1, int horizontal_lines = 8, int vertical_lines = 10)
+              size_t samples = 10000, int width = 1100, int clip = -1, int horizontal_lines = 8, int vertical_lines = 10, bool perturb_abscissas=false)
 {
     static_assert(sizeof(PreciseReal) >= sizeof(Real), "PreciseReal must have larger size than Real");
     if (width <= 1)
@@ -32,6 +32,7 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
     }
 
     std::ofstream fs;
+
     fs.open(filename);
     assert(max_x > min_x);
     int height = floor(double(width)/1.61803);
@@ -67,16 +68,26 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
 
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_real_distribution<Real> dis(min_x, max_x);
+    std::uniform_real_distribution<PreciseReal> dis(min_x, max_x);
 
     std::vector<PreciseReal> ulp(samples);
+    std::vector<PreciseReal> precise_abscissas(samples);
     std::vector<Real> abscissas(samples);
 
     PreciseReal min_y = std::numeric_limits<Real>::max();
     PreciseReal max_y = std::numeric_limits<Real>::lowest();
     for(size_t i = 0; i < samples; ++i)
     {
-        abscissas[i] = dis(gen);
+        if (perturb_abscissas)
+        {
+            precise_abscissas[i] = dis(gen);
+            abscissas[i] = precise_abscissas[i];
+        }
+        else
+        {
+            abscissas[i] = dis(gen);
+            precise_abscissas[i] = abscissas[i];
+        }
     }
 
     PreciseReal worst_ulp_dist = 0;
@@ -84,7 +95,7 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
     {
         Real x = abscissas[i];
         PreciseReal y_lo_ac = static_cast<PreciseReal>(f_lo_accuracy(x));
-        PreciseReal y_hi_ac = f_hi_accuracy(static_cast<PreciseReal>(x));
+        PreciseReal y_hi_ac = f_hi_accuracy(precise_abscissas[i]);
         PreciseReal ay = abs(y_hi_ac);
 
         PreciseReal dist = nextafter(static_cast<Real>(ay), std::numeric_limits<Real>::max()) - static_cast<Real>(ay);
