@@ -9,6 +9,7 @@
 #include <fstream>
 #include <string>
 #include <random>
+#include <boost/math/tools/condition_numbers.hpp>
 
 // Design of this function comes from:
 // https://blogs.mathworks.com/cleve/2017/01/23/ulps-plots-reveal-math-function-accurary/
@@ -73,22 +74,35 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
     std::vector<PreciseReal> ulp(samples);
     std::vector<PreciseReal> precise_abscissas(samples);
     std::vector<Real> abscissas(samples);
+    std::vector<PreciseReal> cond(samples);
 
     PreciseReal min_y = std::numeric_limits<Real>::max();
     PreciseReal max_y = std::numeric_limits<Real>::lowest();
-    for(size_t i = 0; i < samples; ++i)
+    if (perturb_abscissas)
     {
-        if (perturb_abscissas)
+        for(size_t i = 0; i < samples; ++i)
         {
             precise_abscissas[i] = dis(gen);
+        }
+        std::sort(precise_abscissas.begin(), precise_abscissas.end());
+        for (size_t i = 0; i < samples; ++i)
+        {
             abscissas[i] = precise_abscissas[i];
         }
-        else
+    }
+    else
+    {
+        for(size_t i = 0; i < samples; ++i)
         {
             abscissas[i] = dis(gen);
+        }
+        std::sort(abscissas.begin(), abscissas.end());
+        for (size_t i = 0; i < samples; ++i)
+        {
             precise_abscissas[i] = abscissas[i];
         }
     }
+
 
     PreciseReal worst_ulp_dist = 0;
     for(size_t i = 0; i < samples; ++i)
@@ -96,6 +110,35 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
         Real x = abscissas[i];
         PreciseReal y_lo_ac = static_cast<PreciseReal>(f_lo_accuracy(x));
         PreciseReal y_hi_ac = f_hi_accuracy(precise_abscissas[i]);
+        if (y_hi_ac != 0)
+        {
+            cond[i] = boost::math::tools::evaluation_condition_number(f_hi_accuracy, precise_abscissas[i]);
+            if (abs(cond[i]) < 1.0) {
+              cond[i] = 1.0;
+            }
+        }
+        else
+        {
+            if (i != 0) {
+              // Define by (hopeful) continuity
+              cond[i] = cond[i-1];
+            }
+            else if (clip > 0) {
+               cond[i] = clip;
+            }
+            else {
+              // ridiculous.
+              cond[i] = 10; 
+            }
+        }
+        if (clip > 0)
+        {
+            if (cond[i] > clip)
+            {
+                cond[i] = clip;
+            }
+        }
+        
         PreciseReal ay = abs(y_hi_ac);
 
         PreciseReal dist = nextafter(static_cast<Real>(ay), std::numeric_limits<Real>::max()) - static_cast<Real>(ay);
@@ -221,6 +264,27 @@ void ulp_plot(F1 f_lo_accuracy, F2 f_hi_accuracy, Real min_x, Real max_x,
 
         fs << "<circle cx='" << x << "' cy='" << y << "' r='1'/>";
     }
+
+    std::string const & stroke = "green";
+    fs << "<path d='M" << x_scale(abscissas[0]) << " " << y_scale(cond[0]);
+
+    for (size_t j = 1; j < abscissas.size(); ++j)
+    {
+              Real t = x_scale(abscissas[j]);
+              Real y = y_scale(cond[j]);
+              fs << " L" << t << " " << y;
+    }
+    fs << "' stroke='" << stroke << "' stroke-width='" << 1 << "' fill='none'></path>\n";
+
+    fs << "<path d='M" << x_scale(abscissas[0]) << " " << y_scale(-cond[0]);
+
+    for (size_t j = 1; j < abscissas.size(); ++j)
+    {
+              Real t = x_scale(abscissas[j]);
+              Real y = y_scale(-cond[j]);
+              fs << " L" << t << " " << y;
+    }
+    fs << "' stroke='" << stroke << "' stroke-width='" << 1 << "' fill='none'></path>\n";
 
     fs << "</g>\n"
        << "</svg>\n";
