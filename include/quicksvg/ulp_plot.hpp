@@ -94,10 +94,10 @@ public:
             if (y != 0)
             {
                 cond_[i] = boost::math::tools::evaluation_condition_number(hi_acc_impl, precise_abscissas_[i]);
-                // We cannot in general expect better than 1 ULP accuracy, so don't display an unreasonably small envelope:
-                if (cond_[i] < 1.0)
+                // Half-ULP accuracy is the correctly rounded result, so make sure the envelop doesn't go below this:
+                if (cond_[i] < 0.5)
                 {
-                    cond_[i] = 1.0;
+                    cond_[i] = 0.5;
                 }
             }
             // else leave it as nan.
@@ -124,7 +124,7 @@ public:
         return;
     }
 
-    void write(std::string const & filename, int clip = -1, std::string const & title = "", int width = 1100,
+    void write(std::string const & filename, int clip = -1, bool ulp_envelope = true, std::string const & title = "", int width = 1100,
                int horizontal_lines = 8, int vertical_lines = 10)
     {
         using std::abs;
@@ -203,7 +203,7 @@ public:
            << "<svg xmlns='http://www.w3.org/2000/svg' width='"
            << width << "' height='"
            << height << "'>\n"
-           << "<style>svg { background-color: black; } svg>g>circle { fill: steelblue !important; }\n"
+           << "<style>svg { background-color: black; }\n"
            << "</style>\n";
         if (title.size() > 0)
         {
@@ -278,9 +278,71 @@ public:
                 }
                 CoarseReal x = x_scale(coarse_abscissas_[j]);
                 PreciseReal y = y_scale(ulp[j]);
-                //fs << "<circle cx='" << x << "' cy='" << y << "' r='1' fill='" << color << "'/>";
-                fs << "<circle cx='" << x << "' cy='" << y << "' r='1'/>";
+                fs << "<circle cx='" << x << "' cy='" << y << "' r='1' fill='" << color << "'/>";
             }
+        }
+
+        if (ulp_envelope)
+        {
+            // chartreuse?
+            std::string close_path = "' stroke='chartreuse' stroke-width='1' fill='none'></path>\n";
+            size_t jstart = 0;
+            if (clip > 0)
+            {
+                while (cond_[jstart] > clip)
+                {
+                    ++jstart;
+                }
+            }
+            size_t jmin = jstart;
+new_top_path:
+            fs << "<path d='M" << x_scale(coarse_abscissas_[jmin]) << " " << y_scale(cond_[jmin]);
+
+            for (size_t j = jmin + 1; j < coarse_abscissas_.size(); ++j)
+            {
+                bool bad = isnan(cond_[j]) || (clip > 0 && cond_[j] > clip);
+                if (bad)
+                {
+                    ++j;
+                    while ( (j < coarse_abscissas_.size() - 1) && bad)
+                    {
+                        bad = isnan(cond_[j]) || (clip > 0 && cond_[j] > clip);
+                        ++j;
+                    }
+                    jmin = j;
+                    fs << close_path;
+                    goto new_top_path;
+                }
+
+                CoarseReal t = x_scale(coarse_abscissas_[j]);
+                PreciseReal y = y_scale(cond_[j]);
+                fs << " L" << t << " " << y;
+            }
+            fs << close_path;
+            jmin = jstart;
+new_bottom_path:
+            fs << "<path d='M" << x_scale(coarse_abscissas_[jmin]) << " " << y_scale(-cond_[jmin]);
+
+            for (size_t j = jmin + 1; j < coarse_abscissas_.size(); ++j)
+            {
+                bool bad = isnan(cond_[j]) || (clip > 0 && cond_[j] > clip);
+                if (bad)
+                {
+                    ++j;
+                    while ( (j < coarse_abscissas_.size() - 1) && bad)
+                    {
+                        bad = isnan(cond_[j]) || (clip > 0 && cond_[j] > clip);
+                        ++j;
+                    }
+                    jmin = j;
+                    fs << close_path;
+                    goto new_bottom_path;
+                }
+                CoarseReal t = x_scale(coarse_abscissas_[j]);
+                PreciseReal y = y_scale(-cond_[j]);
+                fs << " L" << t << " " << y;
+            }
+            fs << close_path;
         }
 
         fs << "</g>\n"
