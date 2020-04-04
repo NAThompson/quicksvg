@@ -102,7 +102,12 @@ public:
             }
             // else leave it as nan.
         }
+        clip_ = -1;
+    }
 
+    void set_clip(int clip)
+    {
+        clip_ = clip;
     }
 
     template<class G>
@@ -124,7 +129,7 @@ public:
         return;
     }
 
-    void write(std::string const & filename, int clip = -1, bool ulp_envelope = true, std::string const & title = "", int width = 1100,
+    void write(std::string const & filename, bool ulp_envelope = true, std::string const & title = "", int width = 1100,
                int horizontal_lines = 8, int vertical_lines = 10)
     {
         using std::abs;
@@ -161,15 +166,15 @@ public:
             }
         }
 
-        if (clip > 0)
+        if (clip_ > 0)
         {
-            if (max_y > clip)
+            if (max_y > clip_)
             {
-                max_y = clip;
+                max_y = clip_;
             }
-            if (min_y < -clip)
+            if (min_y < -clip_)
             {
-                min_y = -clip;
+                min_y = -clip_;
             }
         }
 
@@ -272,7 +277,7 @@ public:
                 {
                     continue;
                 }
-                if (clip > 0 && abs(ulp[j]) > clip)
+                if (clip_ > 0 && abs(ulp[j]) > clip_)
                 {
                     continue;
                 }
@@ -287,9 +292,9 @@ public:
             // chartreuse?
             std::string close_path = "' stroke='chartreuse' stroke-width='1' fill='none'></path>\n";
             size_t jstart = 0;
-            if (clip > 0)
+            if (clip_ > 0)
             {
-                while (cond_[jstart] > clip)
+                while (cond_[jstart] > clip_)
                 {
                     ++jstart;
                     if (jstart >= cond_.size())
@@ -300,20 +305,21 @@ public:
             }
             size_t jmin = jstart;
 new_top_path:
-            if (jmin >= cond_.size()) {
+            if (jmin >= cond_.size())
+            {
                 goto done;
             }
             fs << "<path d='M" << x_scale(coarse_abscissas_[jmin]) << " " << y_scale(cond_[jmin]);
 
             for (size_t j = jmin + 1; j < coarse_abscissas_.size(); ++j)
             {
-                bool bad = isnan(cond_[j]) || (clip > 0 && cond_[j] > clip);
+                bool bad = isnan(cond_[j]) || (clip_ > 0 && cond_[j] > clip_);
                 if (bad)
                 {
                     ++j;
                     while ( (j < coarse_abscissas_.size() - 2) && bad)
                     {
-                        bad = isnan(cond_[j]) || (clip > 0 && cond_[j] > clip);
+                        bad = isnan(cond_[j]) || (clip_ > 0 && cond_[j] > clip_);
                         ++j;
                     }
                     jmin = j;
@@ -328,17 +334,21 @@ new_top_path:
             fs << close_path;
             jmin = jstart;
 new_bottom_path:
+            if (jmin >= cond_.size())
+            {
+                goto done;
+            }
             fs << "<path d='M" << x_scale(coarse_abscissas_[jmin]) << " " << y_scale(-cond_[jmin]);
 
             for (size_t j = jmin + 1; j < coarse_abscissas_.size(); ++j)
             {
-                bool bad = isnan(cond_[j]) || (clip > 0 && cond_[j] > clip);
+                bool bad = isnan(cond_[j]) || (clip_ > 0 && cond_[j] > clip_);
                 if (bad)
                 {
                     ++j;
                     while ( (j < coarse_abscissas_.size() - 2) && bad)
                     {
-                        bad = isnan(cond_[j]) || (clip > 0 && cond_[j] > clip);
+                        bad = isnan(cond_[j]) || (clip_ > 0 && cond_[j] > clip_);
                         ++j;
                     }
                     jmin = j;
@@ -367,6 +377,7 @@ private:
     std::vector<std::string> colors_;
     CoarseReal a_;
     CoarseReal b_;
+    int clip_;
 };
 
 } // namespace quicksvg
