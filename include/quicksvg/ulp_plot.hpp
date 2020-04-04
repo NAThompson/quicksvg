@@ -103,11 +103,17 @@ public:
             // else leave it as nan.
         }
         clip_ = -1;
+        width_ = 1100;
     }
 
     void set_clip(int clip)
     {
         clip_ = clip;
+    }
+
+    void set_width(int width)
+    {
+        width_ = width;
     }
 
     template<class G>
@@ -129,7 +135,7 @@ public:
         return;
     }
 
-    void write(std::string const & filename, bool ulp_envelope = true, std::string const & title = "", int width = 1100,
+    void write(std::string const & filename, bool ulp_envelope = true, std::string const & title = "",
                int horizontal_lines = 8, int vertical_lines = 10)
     {
         using std::abs;
@@ -139,9 +145,9 @@ public:
         {
             throw std::domain_error("No functions added for comparison.");
         }
-        if (width <= 1)
+        if (width_ <= 1)
         {
-            throw std::domain_error("Width = " + std::to_string(width) + ", which is too small.");
+            throw std::domain_error("Width = " + std::to_string(width_) + ", which is too small.");
         }
 
         PreciseReal worst_ulp_distance = 0;
@@ -178,7 +184,7 @@ public:
             }
         }
 
-        int height = floor(double(width)/1.61803);
+        int height = floor(double(width_)/1.61803);
         int margin_top = 40;
         int margin_left = 25;
         if (title.size() == 0)
@@ -189,7 +195,7 @@ public:
         int margin_bottom = 20;
         int margin_right = 20;
         int graph_height = height - margin_bottom - margin_top;
-        int graph_width = width - margin_left - margin_right;
+        int graph_width = width_ - margin_left - margin_right;
 
         // Maps [a,b] to [0, graph_width]
         auto x_scale = [&](CoarseReal x)->CoarseReal
@@ -206,13 +212,13 @@ public:
         fs.open(filename);
         fs << "<?xml version=\"1.0\" encoding='UTF-8' ?>\n"
            << "<svg xmlns='http://www.w3.org/2000/svg' width='"
-           << width << "' height='"
+           << width_ << "' height='"
            << height << "'>\n"
            << "<style>svg { background-color: black; }\n"
            << "</style>\n";
         if (title.size() > 0)
         {
-            fs << "<text x='" << floor(width/2)
+            fs << "<text x='" << floor(width_/2)
                << "' y='" << floor(margin_top/2)
                << "' font-family='Palatino' font-size='25' fill='white'  alignment-baseline='middle' text-anchor='middle'>"
                << title
@@ -378,6 +384,7 @@ private:
     CoarseReal a_;
     CoarseReal b_;
     int clip_;
+    int width_;
 };
 
 } // namespace quicksvg
