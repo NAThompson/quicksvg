@@ -34,7 +34,7 @@ public:
              bool perturb_abscissas = true, size_t samples = 10000, int random_seed = -1)
     {
         static_assert(sizeof(PreciseReal) >= sizeof(CoarseReal), "PreciseReal must have larger size than CoarseReal");
-        if (samples <= 10)
+        if (samples < 10)
         {
             throw std::domain_error("Must have at least 10 samples, samples = " + std::to_string(samples));
         }
@@ -65,14 +65,14 @@ public:
             std::sort(precise_abscissas_.begin(), precise_abscissas_.end());
             for (size_t i = 0; i < samples; ++i)
             {
-                coarse_abscissas_[i] = precise_abscissas_[i];
+                coarse_abscissas_[i] = static_cast<CoarseReal>(precise_abscissas_[i]);
             }
         }
         else
         {
             for(size_t i = 0; i < samples; ++i)
             {
-                coarse_abscissas_[i] = dis(gen);
+                coarse_abscissas_[i] = static_cast<CoarseReal>(dis(gen));
             }
             std::sort(coarse_abscissas_.begin(), coarse_abscissas_.end());
             for (size_t i = 0; i < samples; ++i)
@@ -117,7 +117,7 @@ public:
             PreciseReal y_lo_acc = g(coarse_abscissas_[i]);
             PreciseReal absy = abs(y_hi_acc);
             PreciseReal dist = nextafter(static_cast<CoarseReal>(absy), std::numeric_limits<CoarseReal>::max()) - static_cast<CoarseReal>(absy);
-            ulps[i] = (y_lo_acc - y_hi_acc)/dist;
+            ulps[i] = static_cast<CoarseReal>((y_lo_acc - y_hi_acc)/dist);
         }
         ulp_list_.emplace_back(ulps);
         colors_.emplace_back(color);
@@ -292,10 +292,17 @@ public:
                 while (cond_[jstart] > clip)
                 {
                     ++jstart;
+                    if (jstart >= cond_.size())
+                    {
+                        goto done;
+                    }
                 }
             }
             size_t jmin = jstart;
 new_top_path:
+            if (jmin >= cond_.size()) {
+                goto done;
+            }
             fs << "<path d='M" << x_scale(coarse_abscissas_[jmin]) << " " << y_scale(cond_[jmin]);
 
             for (size_t j = jmin + 1; j < coarse_abscissas_.size(); ++j)
@@ -304,7 +311,7 @@ new_top_path:
                 if (bad)
                 {
                     ++j;
-                    while ( (j < coarse_abscissas_.size() - 1) && bad)
+                    while ( (j < coarse_abscissas_.size() - 2) && bad)
                     {
                         bad = isnan(cond_[j]) || (clip > 0 && cond_[j] > clip);
                         ++j;
@@ -329,7 +336,7 @@ new_bottom_path:
                 if (bad)
                 {
                     ++j;
-                    while ( (j < coarse_abscissas_.size() - 1) && bad)
+                    while ( (j < coarse_abscissas_.size() - 2) && bad)
                     {
                         bad = isnan(cond_[j]) || (clip > 0 && cond_[j] > clip);
                         ++j;
@@ -345,10 +352,10 @@ new_bottom_path:
             fs << close_path;
         }
 
+done:
         fs << "</g>\n"
            << "</svg>\n";
         fs.close();
-
     }
 
 private:
