@@ -104,6 +104,7 @@ public:
         }
         clip_ = -1;
         width_ = 1100;
+        envelope_color_ = "chartreuse";
     }
 
     void set_clip(int clip)
@@ -114,6 +115,11 @@ public:
     void set_width(int width)
     {
         width_ = width;
+    }
+
+    void set_envelope_color(std::string const & color)
+    {
+        envelope_color_ = color;
     }
 
     template<class G>
@@ -295,83 +301,115 @@ public:
 
         if (ulp_envelope)
         {
-            // chartreuse?
-            std::string close_path = "' stroke='chartreuse' stroke-width='1' fill='none'></path>\n";
-            size_t jstart = 0;
-            if (clip_ > 0)
-            {
-                while (cond_[jstart] > clip_)
-                {
-                    ++jstart;
-                    if (jstart >= cond_.size())
-                    {
-                        goto done;
-                    }
-                }
-            }
-            size_t jmin = jstart;
-new_top_path:
-            if (jmin >= cond_.size())
-            {
-                goto done;
-            }
-            fs << "<path d='M" << x_scale(coarse_abscissas_[jmin]) << " " << y_scale(cond_[jmin]);
-
-            for (size_t j = jmin + 1; j < coarse_abscissas_.size(); ++j)
-            {
-                bool bad = isnan(cond_[j]) || (clip_ > 0 && cond_[j] > clip_);
-                if (bad)
-                {
-                    ++j;
-                    while ( (j < coarse_abscissas_.size() - 2) && bad)
-                    {
-                        bad = isnan(cond_[j]) || (clip_ > 0 && cond_[j] > clip_);
-                        ++j;
-                    }
-                    jmin = j;
-                    fs << close_path;
-                    goto new_top_path;
-                }
-
-                CoarseReal t = x_scale(coarse_abscissas_[j]);
-                PreciseReal y = y_scale(cond_[j]);
-                fs << " L" << t << " " << y;
-            }
-            fs << close_path;
-            jmin = jstart;
-new_bottom_path:
-            if (jmin >= cond_.size())
-            {
-                goto done;
-            }
-            fs << "<path d='M" << x_scale(coarse_abscissas_[jmin]) << " " << y_scale(-cond_[jmin]);
-
-            for (size_t j = jmin + 1; j < coarse_abscissas_.size(); ++j)
-            {
-                bool bad = isnan(cond_[j]) || (clip_ > 0 && cond_[j] > clip_);
-                if (bad)
-                {
-                    ++j;
-                    while ( (j < coarse_abscissas_.size() - 2) && bad)
-                    {
-                        bad = isnan(cond_[j]) || (clip_ > 0 && cond_[j] > clip_);
-                        ++j;
-                    }
-                    jmin = j;
-                    fs << close_path;
-                    goto new_bottom_path;
-                }
-                CoarseReal t = x_scale(coarse_abscissas_[j]);
-                PreciseReal y = y_scale(-cond_[j]);
-                fs << " L" << t << " " << y;
-            }
-            fs << close_path;
+            write_ulp_envelope(fs, x_scale, y_scale);
         }
-
-done:
         fs << "</g>\n"
            << "</svg>\n";
         fs.close();
+    }
+
+    void write_ulp_envelope(std::ofstream & fs, std::function<CoarseReal(CoarseReal)> x_scale, std::function<PreciseReal(PreciseReal)> y_scale)
+    {
+        /*std::list<std::pair<size_t, size_t>> partitions;
+        size_t i = 0;
+        size_t imin = 0;
+        size_t imax = 0;
+        bool bad = isnan(cond_[0]) || (clip_ > 0 && cond_[0] > clip_);
+        bool looking_for_min = true;
+        while(i < cond_.size())
+        {
+            if (isnan(cond_[i]) || (clip_ > 0 && cond_[i] > clip_))
+            {
+                ++i;
+            }
+            else
+            {
+                if (looking_for_min)
+                {
+                    imin = i;
+                    looking_for_min = false;
+                }
+                else
+                {
+                    imax = i;
+                    looking_for_min = false;
+                    partitions.emplace_back({imin, imax});
+                }
+                ++i;
+            }
+        }*/
+ 
+        std::string close_path = "' stroke='"  + envelope_color_ + "' stroke-width='1' fill='none'></path>\n";
+        size_t jstart = 0;
+        if (clip_ > 0)
+        {
+            while (cond_[jstart] > clip_)
+            {
+                ++jstart;
+                if (jstart >= cond_.size())
+                {
+                    return;
+                }
+            }
+        }
+        size_t jmin = jstart;
+new_top_path:
+        if (jmin >= cond_.size())
+        {
+            goto start_bottom_paths;
+        }
+        fs << "<path d='M" << x_scale(coarse_abscissas_[jmin]) << " " << y_scale(cond_[jmin]);
+
+        for (size_t j = jmin + 1; j < coarse_abscissas_.size(); ++j)
+        {
+            bool bad = isnan(cond_[j]) || (clip_ > 0 && cond_[j] > clip_);
+            if (bad)
+            {
+                ++j;
+                while ( (j < coarse_abscissas_.size() - 2) && bad)
+                {
+                    bad = isnan(cond_[j]) || (clip_ > 0 && cond_[j] > clip_);
+                    ++j;
+                }
+                jmin = j;
+                fs << close_path;
+                goto new_top_path;
+            }
+
+            CoarseReal t = x_scale(coarse_abscissas_[j]);
+            PreciseReal y = y_scale(cond_[j]);
+            fs << " L" << t << " " << y;
+        }
+        fs << close_path;
+start_bottom_paths:
+        jmin = jstart;
+new_bottom_path:
+        if (jmin >= cond_.size())
+        {
+            return;
+        }
+        fs << "<path d='M" << x_scale(coarse_abscissas_[jmin]) << " " << y_scale(-cond_[jmin]);
+
+        for (size_t j = jmin + 1; j < coarse_abscissas_.size(); ++j)
+        {
+            bool bad = isnan(cond_[j]) || (clip_ > 0 && cond_[j] > clip_);
+            if (bad)
+            {
+                ++j;
+                while ( (j < coarse_abscissas_.size() - 2) && bad)
+                {
+                    bad = isnan(cond_[j]) || (clip_ > 0 && cond_[j] > clip_);
+                    ++j;
+                }
+                jmin = j;
+                fs << close_path;
+                goto new_bottom_path;
+            }
+            CoarseReal t = x_scale(coarse_abscissas_[j]);
+            PreciseReal y = y_scale(-cond_[j]);
+            fs << " L" << t << " " << y;
+        }
+        fs << close_path;
     }
 
 private:
@@ -385,6 +423,7 @@ private:
     CoarseReal b_;
     int clip_;
     int width_;
+    std::string envelope_color_;
 };
 
 } // namespace quicksvg
