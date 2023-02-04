@@ -3,6 +3,7 @@
 #include "detail/generic_svg_functionality.hpp"
 #include <iomanip>
 #include <cassert>
+#include <sstream>
 #include <vector>
 #include <utility>
 #include <fstream>
